@@ -41,7 +41,7 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="88dp"
             android:orientation="horizontal">
 
             <Button
@@ -53,6 +53,7 @@
                 android:layout_marginRight="100dp"
                 android:layout_marginBottom="10dp"
                 android:layout_weight="1"
+                android:backgroundTint="@color/orange"
                 android:text="Añadir" />
         </LinearLayout>
     </LinearLayout>
