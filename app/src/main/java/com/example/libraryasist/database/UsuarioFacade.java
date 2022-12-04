@@ -13,6 +13,7 @@ public class UsuarioFacade {
     private DBManager dbManager;
 
     public UsuarioFacade(DBManager dbManager){
+
         this.dbManager=dbManager;
     }
 

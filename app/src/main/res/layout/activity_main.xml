@@ -84,13 +84,26 @@
             android:orientation="horizontal">
 
             <Button
+                android:id="@+id/buttonCambiarRegistrar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="14dp"
+                android:layout_marginRight="14dp"
+                android:layout_weight="0.4"
+                android:backgroundTint="@color/orange"
+                android:text="Registrarse"
+                android:textSize="20sp" />
+
+            <Button
                 android:id="@+id/button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="14dp"
+                android:layout_marginRight="14dp"
                 android:layout_weight="0.4"
                 android:backgroundTint="@color/orange"
                 android:text="ACCEDER"
-                android:textSize="24sp" />
+                android:textSize="20sp" />
         </LinearLayout>
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

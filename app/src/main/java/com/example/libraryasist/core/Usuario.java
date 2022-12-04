@@ -10,8 +10,8 @@ public class Usuario {
 
     public Usuario (){
 
-
     }
+
     public Usuario (String dni, String nombre, String apellidos, String password){
         this.dni = dni;
         this.nombre = nombre;
