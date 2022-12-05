@@ -14,22 +14,27 @@ public class DBManager extends SQLiteOpenHelper{
     public static final int DB_VERSION = 1;
     public static final String _id="_id";
 
-    public static String USUARIOS_TABLE_NAME="USUARIOS";
-    public static String USUARIOS_DNI = _id;
-    public static String USUARIOS_NOMBRE = "USUARIOS_NOMBRE";
-    public static String USUARIOS_APELLIDOS = "USUARIOS_APELLIDOS";
-    public static String USUARIOS_PASSWORD = "USUARIOS_PASSWORD";
+    //Tabla usuarios
+    public static final String USUARIOS_TABLE_NAME="USUARIOS";
+    public static final String USUARIOS_ID = _id;
+    public static final String USUARIOS_DNI = "USUARIOS_DNI";
+    public static final String USUARIOS_NOMBRE = "USUARIOS_NOMBRE";
+    public static final String USUARIOS_APELLIDOS = "USUARIOS_APELLIDOS";
+    public static final String USUARIOS_PASSWORD = "USUARIOS_PASSWORD";
+    public static final String USUARIOS_ES_ADMIN = "USUARIOS_ES_ADMIN";
 
+    //Tabla libros
     public static String LIBROS_TABLE_NAME="LIBROS";
     public static String LIBROS_CODIGO = _id;
     public static String LIBROS_TITULO = "LIBROS_TITULO";
     public static String LIBROS_AUTOR = "LIBROS_AUTOR";
 
+    //Tabla libros prestados
     public static String USUARIO_LIBROS_TABLE_NAME = "USUARIO_LIBROS";
     public static String USUARIO_LIBROS_USUARIO_ID = "_id_USUARIO";
     public static String USUARIO_LIBROS_LIBRO_ID = "_id_LIBRO";
 
-
+    //public static final String LIBROS_CODIGO = USUARIO_LIBROS_USUARIO_ID;
     public DBManager(@Nullable Context context){
         super(context,DB_NOMBRE,null,DB_VERSION);
     }
@@ -43,10 +48,13 @@ public class DBManager extends SQLiteOpenHelper{
             //CREACION DE TABLA DE USUARIOS
             db.execSQL("CREATE TABLE IF NOT EXISTS " + USUARIOS_TABLE_NAME +"(" +
                     _id +" INTEGER PRIMARY KEY," +
+                    USUARIOS_DNI + " TEXT NOT NULL UNIQUE," +
                     USUARIOS_NOMBRE + " TEXT NOT NULL," +
                     USUARIOS_APELLIDOS + " TEXT NOT NULL," +
-                    USUARIOS_PASSWORD + " BLOB" +
+                    USUARIOS_PASSWORD + " BLOB," +
+                    USUARIOS_ES_ADMIN + " INTEGER" +
                     ")");
+
 
             //CREACION DE TABLA DE LIBROS
             db.execSQL("CREATE TABLE IF NOT EXISTS " + LIBROS_TABLE_NAME +"(" +
@@ -59,13 +67,15 @@ public class DBManager extends SQLiteOpenHelper{
             db.execSQL("CREATE TABLE IF NOT EXISTS " + USUARIO_LIBROS_TABLE_NAME +"(" +
                     USUARIO_LIBROS_USUARIO_ID+" INTEGER," +
                     USUARIO_LIBROS_LIBRO_ID + " INTEGER,"+
-                    "foreign key ("+USUARIO_LIBROS_USUARIO_ID+" ) references "+USUARIOS_TABLE_NAME+"("+USUARIOS_DNI+"),"+
+                    "foreign key ("+USUARIO_LIBROS_USUARIO_ID+" ) references "+USUARIOS_TABLE_NAME+"("+USUARIOS_ID+"),"+
                     "foreign key ("+USUARIO_LIBROS_LIBRO_ID+" ) references "+LIBROS_TABLE_NAME+"("+LIBROS_CODIGO+"),"+
                     "PRIMARY KEY("+USUARIO_LIBROS_USUARIO_ID+","+USUARIO_LIBROS_LIBRO_ID+")"+
                     ")");
+
             db.setTransactionSuccessful();
         } catch(SQLException exc) {
             Log.e(DBManager.class.getName(), "onCreate", exc);
+
         } finally {
             db.endTransaction();
         }

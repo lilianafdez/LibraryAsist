@@ -2,13 +2,11 @@ package com.example.libraryasist.core;
 
 import android.content.Context;
 import android.database.Cursor;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CursorAdapter;
 
-import com.example.libraryasist.R;
-import com.example.libraryasist.database.UsuarioFacade;
+import com.example.libraryasist.model.UsuarioFacade;
 
 public class UsuarioCursorAdapter extends CursorAdapter {
     private UsuarioFacade usuarioFacade;

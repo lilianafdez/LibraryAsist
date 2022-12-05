@@ -1,22 +1,23 @@
 package com.example.libraryasist.core;
 
-public class Usuario {
+import java.io.Serializable;
+
+public class Usuario implements Serializable {
 
 
     private String dni;
     private String nombre;
     private String apellidos;
     private String password;
+    private Integer es_Admin;
 
-    public Usuario (){
-
-    }
-
+    public Usuario(){    }
     public Usuario (String dni, String nombre, String apellidos, String password){
         this.dni = dni;
         this.nombre = nombre;
         this.apellidos = apellidos;
         this.password = password;
+        this.es_Admin = 0;
 
     }
 
@@ -50,5 +51,13 @@ public class Usuario {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public Integer getEs_Admin() {
+        return es_Admin;
+    }
+
+    public void setEs_Admin(Integer es_Admin) {
+        this.es_Admin = es_Admin;
     }
 }
