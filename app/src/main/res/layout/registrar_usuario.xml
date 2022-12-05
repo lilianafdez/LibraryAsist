@@ -21,9 +21,10 @@
 
             <ImageView
                 android:id="@+id/imageView2"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
+                android:contentDescription="Logo"
                 app:srcCompat="@drawable/logo"
                 tools:ignore="ImageContrastCheck" />
         </LinearLayout>
@@ -51,7 +52,7 @@
                 android:ems="10"
                 android:inputType="textPersonName"
                 android:minHeight="48dp"
-                android:text="Name" />
+                android:text="DNI" />
         </LinearLayout>
 
         <LinearLayout
@@ -77,7 +78,7 @@
                 android:ems="10"
                 android:inputType="textPersonName"
                 android:minHeight="48dp"
-                android:text="Name" />
+                android:text="Nombre" />
         </LinearLayout>
 
         <LinearLayout
@@ -103,7 +104,7 @@
                 android:ems="10"
                 android:inputType="textPersonName"
                 android:minHeight="48dp"
-                android:text="Name" />
+                android:text="Apellidos" />
         </LinearLayout>
 
         <LinearLayout
@@ -128,7 +129,8 @@
                 android:layout_weight="1"
                 android:ems="10"
                 android:inputType="textPassword"
-                android:minHeight="48dp" />
+                android:minHeight="48dp"
+                android:text="Contrasena" />
         </LinearLayout>
 
         <LinearLayout
@@ -137,17 +139,29 @@
             android:orientation="horizontal">
 
             <Button
-                android:id="@+id/buttonRegistrarUsuario"
+                android:id="@+id/buttonVolverRegistrar"
                 android:layout_width="170dp"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="100dp"
+                android:layout_marginLeft="50dp"
                 android:layout_marginTop="80dp"
-                android:layout_marginRight="100dp"
+                android:layout_marginRight="50dp"
+                android:layout_marginBottom="10dp"
+                android:layout_weight="1"
+                android:text="Volver" />
+
+            <Button
+                android:id="@+id/buttonRegistrarUsuario"
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="50dp"
+                android:layout_marginTop="80dp"
+                android:layout_marginRight="50dp"
                 android:layout_marginBottom="10dp"
                 android:layout_weight="1"
                 android:backgroundTint="@color/orange"
                 android:text="Registrar"
                 tools:ignore="TextContrastCheck" />
+
         </LinearLayout>
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,13 +1,18 @@
 package com.example.libraryasist.core;
 
+import com.example.libraryasist.model.UsuarioFacade;
+
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class Registrar {
 
-    public Registrar(String dni, String nombre, String apellidos, String contraseña){
+    public Registrar(UsuarioFacade usuarioFacade, String dni, String nombre, String apellidos, String contraseña){
 
-        Usuario usuario = new Usuario(dni, nombre, apellidos,contraseña);
+        if(comprobarDni(dni) && nombre != "" && apellidos != "" && contraseña != ""){
+            Usuario usuario = new Usuario(dni, nombre, apellidos, contraseña);
+            usuarioFacade.createUsuario(usuario);
+        }
 
 
 

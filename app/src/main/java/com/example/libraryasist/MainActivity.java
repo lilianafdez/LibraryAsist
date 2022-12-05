@@ -1,5 +1,6 @@
 package com.example.libraryasist;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
@@ -8,15 +9,16 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import androidx.appcompat.app.AppCompatActivity;
+
 
 import com.example.libraryasist.core.Usuario;
 import com.example.libraryasist.model.UsuarioFacade;
+import com.example.libraryasist.view.RegistroView;
 import com.example.libraryasist.view.Vista_admin;
 
 import java.util.Arrays;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends Activity {
 
     private UsuarioFacade usuarioDB;
     private boolean admin;
@@ -58,6 +60,19 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
+
+        Button botonRegistrarse = (Button) this.findViewById(R.id.buttonCambiarRegistrar);
+
+        botonRegistrarse.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                startActivity( new Intent( MainActivity.this, RegistroView.class ) );
+
+                            }
+                        }
+
+        );
+
     }
 
     private void goTo(Intent intent, String username){
