@@ -64,22 +64,7 @@ public class UsuarioFacade extends GeneralFacade {
             writableDatabase.endTransaction();
         }
     }
-/*
-    public boolean createUsuario(Usuario usuario){
 
-        return super.createObjectInDB("INSERT INTO " +DBManager.USUARIOS_TABLE_NAME +
-                "(" +
-                DBManager.USUARIOS_DNI +
-                ","+
-                DBManager.USUARIOS_NOMBRE +
-                ","+
-                DBManager.USUARIOS_APELLIDOS +
-                ","+
-                DBManager.USUARIOS_PASSWORD+
-                ") VALUES (?,?,?,?)",
-        new Object[]{usuario.getDni(),usuario.getNombre(),usuario.getApellidos(),usuario.getPassword()});
-
-    }*/
 
     public void removeUsuario(Usuario usuario) {
         SQLiteDatabase writableDatabase = dbManager.getWritableDatabase();
