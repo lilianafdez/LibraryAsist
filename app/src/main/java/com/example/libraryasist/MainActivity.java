@@ -10,6 +10,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.libraryasist.core.Usuario;
 import com.example.libraryasist.model.UsuarioFacade;
@@ -18,7 +19,7 @@ import com.example.libraryasist.view.Vista_admin;
 
 import java.util.Arrays;
 
-public class MainActivity extends Activity {
+public class MainActivity extends AppCompatActivity {
 
     private UsuarioFacade usuarioDB;
     private boolean admin;
@@ -51,7 +52,7 @@ public class MainActivity extends Activity {
 
                 else if(acceder && admin){
                     Intent menu_admin=new Intent(MainActivity.this, Vista_admin.class);
-                    MainActivity.this.goTo(menu_admin,"nombeusuario");
+                    MainActivity.this.goTo(menu_admin,"nombreusuario");
                     MainActivity.this.finish();
 
                 }

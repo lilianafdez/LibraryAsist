@@ -55,7 +55,9 @@ public class UsuarioFacade extends GeneralFacade {
                             DBManager.USUARIOS_APELLIDOS +
                             ","+
                             DBManager.USUARIOS_PASSWORD+
-                            ") VALUES (?,?,?,?)"
+                            ","+
+                            DBManager.USUARIOS_ES_ADMIN+
+                            ") VALUES (?,?,?,?,?)"
                     , new Object[]{usuario.getDni(), usuario.getNombre(), usuario.getApellidos(), usuario.getPassword(), usuario.getEs_Admin()});
             writableDatabase.setTransactionSuccessful();
         }catch(SQLException exception){

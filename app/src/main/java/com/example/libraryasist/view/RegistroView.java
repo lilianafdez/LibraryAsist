@@ -9,6 +9,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.example.libraryasist.MainActivity;
 import com.example.libraryasist.MyApplication;
 import com.example.libraryasist.R;
@@ -16,7 +18,7 @@ import com.example.libraryasist.core.Usuario;
 import com.example.libraryasist.database.DBManager;
 import com.example.libraryasist.model.UsuarioFacade;
 
-public class RegistroView extends Activity {
+public class RegistroView extends AppCompatActivity {
 
     UsuarioFacade usuarioFacade;
 
@@ -40,20 +42,27 @@ public class RegistroView extends Activity {
         botonRegistrar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(!RegistroView.this.nombreUsuarioOcupado(dniIntroducido.getText().toString())){
-                    Usuario usuarioRegistrar = new Usuario(dniIntroducido.getText().toString(), nombreIntroducido.getText().toString(),
-                            apellidosIntroducido.getText().toString(), passwordIntroducido.getText().toString());
 
-                    usuarioFacade.createUsuario(usuarioRegistrar);
+                if (!RegistroView.this.comprobarVacio()){
+                    if(!RegistroView.this.nombreUsuarioOcupado(dniIntroducido.getText().toString())){
+                        Usuario usuarioRegistrar = new Usuario(dniIntroducido.getText().toString(), nombreIntroducido.getText().toString(),
+                                apellidosIntroducido.getText().toString(), passwordIntroducido.getText().toString());
 
-                    Intent intent = new Intent(RegistroView.this, MainActivity.class);
+                        usuarioFacade.createUsuario(usuarioRegistrar);
 
-                    RegistroView.this.startActivity(intent);
-                    RegistroView.this.finish();
+                        Intent intent = new Intent(RegistroView.this, MainActivity.class);
 
+                        RegistroView.this.startActivity(intent);
+                        RegistroView.this.finish();
+
+                    }else{
+                        RegistroView.dialogoErrorDatos("El dni introducido ya esta registrado", RegistroView.this);
+                    }
                 }else{
-                    RegistroView.dialogoErrorDatos("El dni introducido ya esta registrado", RegistroView.this);
+                    RegistroView.dialogoErrorDatos("Los datos no pueden ser vacios", RegistroView.this);
+
                 }
+
             }
         });
 
@@ -81,6 +90,16 @@ public class RegistroView extends Activity {
     private boolean nombreUsuarioOcupado(String dni){
 
         return usuarioFacade.getUsuariosByDni(dni)!=null;
+    }
+
+    private boolean comprobarVacio(){
+        EditText dni = (EditText) findViewById(R.id.editTextDniRegistrar);
+        EditText nombre = (EditText) findViewById(R.id.editTextNombreRegistrar);
+        EditText apellidos = (EditText) findViewById(R.id.editTextApellidosRegistrar);
+        EditText password = (EditText) findViewById(R.id.editTextPasswordRegistrar);
+
+
+        return dni.getText().toString().isEmpty() || nombre.getText().toString().isEmpty() || apellidos.getText().toString().isEmpty() || password.getText().toString().isEmpty() ;
     }
 
 }

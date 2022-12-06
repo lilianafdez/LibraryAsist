@@ -51,8 +51,7 @@
                 android:layout_weight="1"
                 android:ems="10"
                 android:inputType="textPersonName"
-                android:minHeight="48dp"
-                android:text="DNI" />
+                android:minHeight="48dp" />
         </LinearLayout>
 
         <LinearLayout
@@ -77,8 +76,7 @@
                 android:layout_weight="1"
                 android:ems="10"
                 android:inputType="textPersonName"
-                android:minHeight="48dp"
-                android:text="Nombre" />
+                android:minHeight="48dp" />
         </LinearLayout>
 
         <LinearLayout
@@ -103,8 +101,7 @@
                 android:layout_weight="1"
                 android:ems="10"
                 android:inputType="textPersonName"
-                android:minHeight="48dp"
-                android:text="Apellidos" />
+                android:minHeight="48dp" />
         </LinearLayout>
 
         <LinearLayout
@@ -129,8 +126,7 @@
                 android:layout_weight="1"
                 android:ems="10"
                 android:inputType="textPassword"
-                android:minHeight="48dp"
-                android:text="Contrasena" />
+                android:minHeight="48dp" />
         </LinearLayout>
 
         <LinearLayout
