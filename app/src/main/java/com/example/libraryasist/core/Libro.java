@@ -3,25 +3,35 @@ package com.example.libraryasist.core;
 import java.io.Serializable;
 
 public class Libro implements Serializable {
-    private long codigo;
+    private String isbm;
     private String titulo;
     private String autor;
+    private Integer reservado;
 
-    public Libro(long codigo, String titulo, String autor) {
-        this.codigo = codigo;
+    public Libro(String isbm, String titulo, String autor) {
+        this.isbm = isbm;
         this.titulo = titulo;
         this.autor = autor;
+        reservado = 0;
     }
     public Libro() {
 
     }
 
-    public long getCodigo() {
-        return codigo;
+    public Integer getReservado() {
+        return reservado;
     }
 
-    public void setCodigo(long codigo) {
-        this.codigo = codigo;
+    public void setReservado(Integer reservado) {
+        this.reservado = reservado;
+    }
+
+    public String getIsbm() {
+        return isbm;
+    }
+
+    public void setIsbm(String isbm) {
+        this.isbm = isbm;
     }
 
     public String getTitulo() {

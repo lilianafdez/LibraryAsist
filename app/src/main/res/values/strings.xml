@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">LibraryAsist</string>
+    <string name="tituloLibro">Titulo</string>
+    <string name="autor">Autor</string>
+    <string name="reservado">Reservado</string>
+    <string name="opDel">Eliminar</string>
+    <string name="opCancel">Cancelar</string>
 </resources>

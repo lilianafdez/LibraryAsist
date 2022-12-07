@@ -1,6 +1,5 @@
 package com.example.libraryasist;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
@@ -14,12 +13,9 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.libraryasist.core.Usuario;
 import com.example.libraryasist.model.UsuarioFacade;
-import com.example.libraryasist.view.AddReserva;
 import com.example.libraryasist.view.RegistroView;
 import com.example.libraryasist.view.UsuarioView;
 import com.example.libraryasist.view.Vista_admin;
-
-import java.util.Arrays;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -33,9 +29,7 @@ public class MainActivity extends AppCompatActivity {
         this.usuarioDB=new UsuarioFacade(((MyApplication) this.getApplication()).getDBManager());
         Button botonAcceder = findViewById(R.id.buttonAcceder);
 
- //       this.createAdmin();
-
-        startActivity( new Intent( MainActivity.this, AddReserva.class ) );
+        this.createAdmin();
 
         botonAcceder.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -44,17 +38,15 @@ public class MainActivity extends AppCompatActivity {
                 if(acceder){
                     MainActivity.this.admin=((MyApplication)MainActivity.this.getApplication()).esAdmin();
                 }
-/*
+
                 if(acceder && !admin){
-                    Intent menu_usuario=new Intent(MainActivity.this, Vista_usuario.class);
+                    Intent menu_usuario=new Intent(MainActivity.this, UsuarioView.class);
+                    Toast.makeText(MainActivity.this,"NO-ADMIN",Toast.LENGTH_SHORT).show();
                     MainActivity.this.goTo(menu_usuario,"nombeusuario");
                     MainActivity.this.finish();
-                    }
-*/
-
-
-                else if(acceder && admin){
+                } else if(acceder && admin){
                     Intent menu_admin=new Intent(MainActivity.this, Vista_admin.class);
+                    Toast.makeText(MainActivity.this,"SI-ADMIN",Toast.LENGTH_SHORT).show();
                     MainActivity.this.goTo(menu_admin,"nombreusuario");
                     MainActivity.this.finish();
 
@@ -68,12 +60,12 @@ public class MainActivity extends AppCompatActivity {
         Button botonRegistrarse = (Button) this.findViewById(R.id.buttonCambiarRegistrar);
 
         botonRegistrarse.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View view) {
-                                startActivity( new Intent( MainActivity.this, RegistroView.class ) );
+                                                @Override
+                                                public void onClick(View view) {
+                                                    startActivity( new Intent( MainActivity.this, RegistroView.class ) );
 
-                            }
-                        }
+                                                }
+                                            }
 
         );
 
@@ -99,7 +91,8 @@ public class MainActivity extends AppCompatActivity {
             usuario.moveToFirst();
             Usuario actual=UsuarioFacade.readUsuario(usuario);
             long id=UsuarioFacade.getID(usuario);
-            if(actual.getPassword() == passwordIntroducida){
+
+            if(actual.getPassword().equals(passwordIntroducida)){
                 toret=true;
                 MyApplication app=(MyApplication) this.getApplication();
                 app.setLogeado(actual);
@@ -109,43 +102,13 @@ public class MainActivity extends AppCompatActivity {
         }
         return toret;
     }
+
     private void createAdmin(){
-        Usuario admin=new Usuario("11111","admin","admin","admin");
+        Usuario admin=new Usuario("admin","admin","admin","admin");
         admin.setEs_Admin(1);
-    //    if(!this.usuarioDB.existeAdmin()){
+        if(!this.usuarioDB.existeAdmin()){
             this.usuarioDB.createUsuario(admin);
-     //   }
+        }
     }
-    /*private UsuarioFacade usuarioFacade;
-    private UsuarioCursorAdapter usuairoCursorAdapter;
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-
-        usuarioFacade = new UsuarioFacade(getDBManager());
-        //usuairoCursorAdapter = new UsuarioCursorAdapter(MainActivity.this, null, usuarioFacade);
-
-        Button botonAcceder = (Button) this.findViewById(R.id.buttonAcceder);
-        Button botonRegistrarse = (Button) this.findViewById(R.id.buttonCambiarRegistrar);
-
-        botonRegistrarse.setOnClickListener(new View.OnClickListener() {
-                                                @Override
-                                                public void onClick(View view) {
-                                                    startActivity( new Intent( MainActivity.this, RegistroView.class ) );
-
-                                                }
-                                            }
-
-        );
-
-    }
-
-
-
-    private DBManager getDBManager(){
-        return ((LibraryAsist) getApplication()).getDbManager();
-    }*/
 
 }

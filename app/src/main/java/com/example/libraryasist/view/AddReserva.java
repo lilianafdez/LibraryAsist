@@ -4,7 +4,6 @@ package com.example.libraryasist.view;
 
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.view.View;
@@ -83,6 +82,8 @@ public class AddReserva extends AppCompatActivity {
 
     }
 
+
+
     @SuppressLint("Range")
     private ArrayList<Libro> listaLibros(){
 
@@ -93,7 +94,7 @@ public class AddReserva extends AppCompatActivity {
         while(librosCursor.moveToNext()){
             Libro temp = new Libro();
 
-            temp.setCodigo(librosCursor.getLong(librosCursor.getColumnIndex(DBManager.LIBROS_CODIGO)));
+            temp.setIsbm(librosCursor.getString(librosCursor.getColumnIndex(DBManager.LIBROS_CODIGO)));
             temp.setTitulo(librosCursor.getString(librosCursor.getColumnIndex(DBManager.LIBROS_TITULO)));
             temp.setAutor(librosCursor.getString(librosCursor.getColumnIndex(DBManager.LIBROS_AUTOR)));
 

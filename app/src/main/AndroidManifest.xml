@@ -15,6 +15,22 @@
         android:theme="@style/Theme.LibraryAsist"
         tools:targetApi="31">
         <activity
+            android:name=".view.Vista_admin"
+            android:exported="true"
+            android:launchMode="singleTask">
+            <intent-filter>
+                <action android:name="android.intent.action.CALL" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".view.AddLibro"
+            android:exported="true"
+            android:launchMode="singleTask">
+            <intent-filter>
+                <action android:name="android.intent.action.CALL" />
+            </intent-filter>
+        </activity>
+        <activity
             android:name=".view.AddReserva" />
         <activity
             android:name=".view.RegistroView"/>

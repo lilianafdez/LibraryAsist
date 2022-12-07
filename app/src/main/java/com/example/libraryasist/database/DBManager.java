@@ -1,6 +1,7 @@
 package com.example.libraryasist.database;
 
 import android.content.Context;
+import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
@@ -10,8 +11,8 @@ import androidx.annotation.Nullable;
 
 public class DBManager extends SQLiteOpenHelper{
 
-    public static final String DB_NOMBRE = "BIBLIOTECA";
     public static final int DB_VERSION = 1;
+    public static final String DB_NOMBRE = "BIBLIOTECA";
     public static final String _id="_id";
 
     //Tabla usuarios
@@ -24,10 +25,12 @@ public class DBManager extends SQLiteOpenHelper{
     public static final String USUARIOS_ES_ADMIN = "USUARIOS_ES_ADMIN";
 
     //Tabla libros
-    public static String LIBROS_TABLE_NAME="LIBROS";
-    public static String LIBROS_CODIGO = _id;
-    public static String LIBROS_TITULO = "LIBROS_TITULO";
-    public static String LIBROS_AUTOR = "LIBROS_AUTOR";
+    public static final String LIBROS_TABLE_NAME="LIBROS";
+    public static final String LIBROS_ID = _id;
+    public static final String LIBROS_CODIGO = "LIBROS_CODIGO";
+    public static final String LIBROS_TITULO = "LIBROS_TITULO";
+    public static final String LIBROS_AUTOR = "LIBROS_AUTOR";
+    public static final String LIBROS_RESERVADO= "LIBROS_RESERVADO";
 
     //Tabla libros prestados
     public static String USUARIO_LIBROS_TABLE_NAME = "USUARIO_LIBROS";
@@ -59,8 +62,10 @@ public class DBManager extends SQLiteOpenHelper{
             //CREACION DE TABLA DE LIBROS
             db.execSQL("CREATE TABLE IF NOT EXISTS " + LIBROS_TABLE_NAME +"(" +
                     _id +" INTEGER PRIMARY KEY," +
+                    LIBROS_CODIGO + " TEXT NOT NULL UNIQUE," +
                     LIBROS_TITULO + " TEXT NOT NULL," +
-                    LIBROS_AUTOR + " TEXT NOT NULL" +
+                    LIBROS_AUTOR + " TEXT NOT NULL," +
+                    LIBROS_RESERVADO + " INTEGER" +
                     ")");
 
             //CREACION DE TABLA DE LIBROS RESERVADOS POR UN USUARIO
@@ -68,7 +73,7 @@ public class DBManager extends SQLiteOpenHelper{
                     USUARIO_LIBROS_USUARIO_ID+" INTEGER," +
                     USUARIO_LIBROS_LIBRO_ID + " INTEGER,"+
                     "foreign key ("+USUARIO_LIBROS_USUARIO_ID+" ) references "+USUARIOS_TABLE_NAME+"("+USUARIOS_ID+"),"+
-                    "foreign key ("+USUARIO_LIBROS_LIBRO_ID+" ) references "+LIBROS_TABLE_NAME+"("+LIBROS_CODIGO+"),"+
+                    "foreign key ("+USUARIO_LIBROS_LIBRO_ID+" ) references "+LIBROS_TABLE_NAME+"("+LIBROS_ID+"),"+
                     "PRIMARY KEY("+USUARIO_LIBROS_USUARIO_ID+","+USUARIO_LIBROS_LIBRO_ID+")"+
                     ")");
 
@@ -83,7 +88,7 @@ public class DBManager extends SQLiteOpenHelper{
 
     @Override
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {
-
+        Log.i( "DBManager", "DB: " + DB_NOMBRE + ": v" + i + " -> v" + i1 );
         try {
 
             sqLiteDatabase.beginTransaction();
@@ -107,5 +112,11 @@ public class DBManager extends SQLiteOpenHelper{
         }finally {
             sqLiteDatabase.endTransaction();
         }
+    }
+
+    public Cursor getLibros()
+    {
+        return this.getReadableDatabase().query( LIBROS_TABLE_NAME,
+                null, null, null, null, null, null );
     }
 }

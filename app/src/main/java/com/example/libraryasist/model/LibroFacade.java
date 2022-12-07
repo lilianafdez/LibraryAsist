@@ -22,7 +22,7 @@ public class LibroFacade extends GeneralFacade {
         if (cursor!=null){
             try {
                 toret = new Libro();
-                toret.setCodigo(cursor.getLong(cursor.getColumnIndex(DBManager.LIBROS_CODIGO)));
+                toret.setIsbm(cursor.getString(cursor.getColumnIndex(DBManager.LIBROS_CODIGO)));
                 toret.setTitulo(cursor.getString(cursor.getColumnIndex(DBManager.LIBROS_TITULO)));
                 toret.setAutor(cursor.getString(cursor.getColumnIndex(DBManager.LIBROS_AUTOR)));
 
@@ -50,7 +50,7 @@ public class LibroFacade extends GeneralFacade {
                             ","+
                             DBManager.LIBROS_AUTOR +
                             ") VALUES (?,?)"
-                    , new Object[]{libro.getCodigo(), libro.getTitulo(), libro.getAutor()});
+                    , new Object[]{libro.getIsbm(), libro.getTitulo(), libro.getAutor()});
             writableDatabase.setTransactionSuccessful();
         }catch(SQLException exception){
             Log.e(LibroFacade.class.getName(), "createLibro", exception);
@@ -68,7 +68,7 @@ public class LibroFacade extends GeneralFacade {
                             + DBManager.LIBROS_TABLE_NAME
                             + " WHERE "
                             + DBManager.LIBROS_CODIGO +"=?"
-                    , new Object[]{libro.getCodigo()});
+                    , new Object[]{libro.getIsbm()});
             writableDatabase.setTransactionSuccessful();
         }catch(SQLException exception){
             Log.e(LibroFacade.class.getName(), "removeLibro", exception);
@@ -89,7 +89,7 @@ public class LibroFacade extends GeneralFacade {
                             + DBManager.LIBROS_AUTOR + "=?"
 
                             + "WHERE "+DBManager.LIBROS_CODIGO +"=?",
-                    new Object[]{libro.getTitulo(), libro.getTitulo(), libro.getCodigo()});
+                    new Object[]{libro.getTitulo(), libro.getTitulo(), libro.getIsbm()});
 
             writableDatabase.setTransactionSuccessful();
         }catch(SQLException exception){
@@ -116,7 +116,16 @@ public class LibroFacade extends GeneralFacade {
         return toret;
     }
 
+    public boolean checkLibro(String isbn){
+        Cursor libro=this.dbManager.getReadableDatabase().rawQuery("SELECT * FROM "
+                + DBManager.LIBROS_TABLE_NAME + " WHERE " + DBManager.LIBROS_CODIGO + " LIKE ?", new String[]{isbn});
+        if(libro.getCount()==1) {
+            return true;
 
+        }else{
+            return false;
+        }
+    }
 
 
 }

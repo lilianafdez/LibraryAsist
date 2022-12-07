@@ -10,13 +10,21 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.libraryasist.MyApplication;
 import com.example.libraryasist.R;
+import com.example.libraryasist.core.Libro;
+import com.example.libraryasist.core.Reserva;
+import com.example.libraryasist.core.Usuario;
 import com.example.libraryasist.database.DBManager;
 import com.example.libraryasist.model.LibroFacade;
+import com.example.libraryasist.model.ReservasFacade;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class UsuarioView extends AppCompatActivity {
 
     LibroFacade libroFacade;
+    ReservasFacade reservasFacade;
 
 
     @Override
@@ -25,9 +33,14 @@ public class UsuarioView extends AppCompatActivity {
         setContentView(R.layout.vista_usuario);
 
         DBManager dbManager = ((MyApplication) this.getApplication()).getDBManager();
+        reservasFacade = new ReservasFacade(dbManager);
         libroFacade = new LibroFacade(dbManager);
 
         ListView listViewLibros = (ListView) this.findViewById(R.id.listViewReserva);
+
+        List<Reserva> arrayReservas = new ArrayList<>();
+
+
 
         listViewLibros.setAdapter(
                 new ArrayAdapter<String>(
@@ -50,6 +63,27 @@ public class UsuarioView extends AppCompatActivity {
         }
 
         return temp;
+    }
+
+    @SuppressLint("Range")
+    private ArrayList<Reserva> listaReserva(){
+
+        Cursor librosCursor = libroFacade.getLibros();
+
+        ArrayList<Reserva> arrayList = new ArrayList<>();
+
+        while(librosCursor.moveToNext()){
+            Libro temp = new Libro();
+
+            temp.setIsbm(librosCursor.getString(librosCursor.getColumnIndex(DBManager.LIBROS_CODIGO)));
+            temp.setTitulo(librosCursor.getString(librosCursor.getColumnIndex(DBManager.LIBROS_TITULO)));
+            temp.setAutor(librosCursor.getString(librosCursor.getColumnIndex(DBManager.LIBROS_AUTOR)));
+
+            Usuario user = new Usuario("49672434J","Anton","Canzobre", "anton");
+            arrayList.add(new Reserva(user,temp));
+        }
+
+        return arrayList;
     }
 
 }
