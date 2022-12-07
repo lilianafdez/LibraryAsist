@@ -19,7 +19,7 @@
         <activity
             android:name=".view.RegistroView"/>
         <activity
-            android:name=".view.usuarioView"/>
+            android:name=".view.UsuarioView"/>
         <activity
             android:name=".MainActivity"
             android:exported="true">

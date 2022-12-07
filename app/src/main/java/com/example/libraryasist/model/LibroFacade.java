@@ -46,12 +46,10 @@ public class LibroFacade extends GeneralFacade {
             writableDatabase.execSQL(
                     "INSERT INTO " +DBManager.LIBROS_TABLE_NAME +
                             "(" +
-                            DBManager.LIBROS_CODIGO +
-                            ","+
                             DBManager.LIBROS_TITULO +
                             ","+
                             DBManager.LIBROS_AUTOR +
-                            ") VALUES (?,?,?)"
+                            ") VALUES (?,?)"
                     , new Object[]{libro.getCodigo(), libro.getTitulo(), libro.getAutor()});
             writableDatabase.setTransactionSuccessful();
         }catch(SQLException exception){

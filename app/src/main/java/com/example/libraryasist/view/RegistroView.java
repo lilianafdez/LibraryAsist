@@ -18,6 +18,9 @@ import com.example.libraryasist.core.Usuario;
 import com.example.libraryasist.database.DBManager;
 import com.example.libraryasist.model.UsuarioFacade;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 public class RegistroView extends AppCompatActivity {
 
     UsuarioFacade usuarioFacade;
@@ -26,7 +29,7 @@ public class RegistroView extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.registrar_usuario);
 
-       DBManager dbManager = ((MyApplication) this.getApplication()).getDBManager();
+        DBManager dbManager = ((MyApplication) this.getApplication()).getDBManager();
 
         usuarioFacade = new UsuarioFacade(dbManager);
 
@@ -44,20 +47,26 @@ public class RegistroView extends AppCompatActivity {
             public void onClick(View view) {
 
                 if (!RegistroView.this.comprobarVacio()){
-                    if(!RegistroView.this.nombreUsuarioOcupado(dniIntroducido.getText().toString())){
-                        Usuario usuarioRegistrar = new Usuario(dniIntroducido.getText().toString(), nombreIntroducido.getText().toString(),
-                                apellidosIntroducido.getText().toString(), passwordIntroducido.getText().toString());
+                    if(RegistroView.this.comprobarDni(dniIntroducido.getText().toString())){
+                        if(!RegistroView.this.nombreUsuarioOcupado(dniIntroducido.getText().toString())){
+                            Usuario usuarioRegistrar = new Usuario(dniIntroducido.getText().toString(), nombreIntroducido.getText().toString(),
+                                    apellidosIntroducido.getText().toString(), passwordIntroducido.getText().toString());
 
-                        usuarioFacade.createUsuario(usuarioRegistrar);
+                            usuarioFacade.createUsuario(usuarioRegistrar);
 
-                        Intent intent = new Intent(RegistroView.this, MainActivity.class);
+                            Intent intent = new Intent(RegistroView.this, MainActivity.class);
 
-                        RegistroView.this.startActivity(intent);
-                        RegistroView.this.finish();
+                            RegistroView.this.startActivity(intent);
+                            RegistroView.this.finish();
 
+                        }else{
+                            RegistroView.dialogoErrorDatos("El dni introducido ya esta registrado", RegistroView.this);
+                        }
                     }else{
-                        RegistroView.dialogoErrorDatos("El dni introducido ya esta registrado", RegistroView.this);
+                        RegistroView.dialogoErrorDatos("El formato del dni no es valido", RegistroView.this);
+
                     }
+
                 }else{
                     RegistroView.dialogoErrorDatos("Los datos no pueden ser vacios", RegistroView.this);
 
@@ -100,6 +109,14 @@ public class RegistroView extends AppCompatActivity {
 
 
         return dni.getText().toString().isEmpty() || nombre.getText().toString().isEmpty() || apellidos.getText().toString().isEmpty() || password.getText().toString().isEmpty() ;
+    }
+
+    private boolean comprobarDni(String dni){
+
+        Pattern patron = Pattern.compile("[0-9]{8}[A-Z a-z]");
+        Matcher mat = patron.matcher(dni);
+
+        return mat.matches();
     }
 
 }

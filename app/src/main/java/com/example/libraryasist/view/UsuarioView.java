@@ -1,9 +1,6 @@
 package com.example.libraryasist.view;
 
-
-
 import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.widget.ArrayAdapter;
@@ -15,28 +12,33 @@ import com.example.libraryasist.MyApplication;
 import com.example.libraryasist.R;
 import com.example.libraryasist.database.DBManager;
 import com.example.libraryasist.model.LibroFacade;
+import com.example.libraryasist.model.UsuarioFacade;
 
-public class AddReserva extends AppCompatActivity {
+
+
+public class UsuarioView extends AppCompatActivity {
 
     LibroFacade libroFacade;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_add_reserva);
+        setContentView(R.layout.vista_usuario);
 
         DBManager dbManager = ((MyApplication) this.getApplication()).getDBManager();
         libroFacade = new LibroFacade(dbManager);
 
-        ListView listViewLibros = (ListView) this.findViewById(R.id.ListViewLibrosDisponibles);
+        ListView listViewLibros = (ListView) this.findViewById(R.id.listViewReserva);
 
         listViewLibros.setAdapter(
                 new ArrayAdapter<String>(
                         this, android.R.layout.simple_expandable_list_item_1,
-                        AddReserva.this.listaLibros() )
+                        UsuarioView.this.listaLibros() )
         );
 
     }
+
 
     @SuppressLint("Range")
     private String []listaLibros(){
@@ -51,4 +53,5 @@ public class AddReserva extends AppCompatActivity {
 
         return temp;
     }
+
 }

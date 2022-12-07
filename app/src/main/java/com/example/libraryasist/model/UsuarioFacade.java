@@ -22,6 +22,7 @@ public class UsuarioFacade extends GeneralFacade {
         if (cursor!=null){
             try {
                 toret = new Usuario();
+                toret.setCodigo(cursor.getLong(cursor.getColumnIndex(DBManager.USUARIOS_ID)));
                 toret.setDni(cursor.getString(cursor.getColumnIndex(DBManager.USUARIOS_DNI)));
                 toret.setNombre(cursor.getString(cursor.getColumnIndex(DBManager.USUARIOS_NOMBRE)));
                 toret.setApellidos(cursor.getString(cursor.getColumnIndex(DBManager.USUARIOS_APELLIDOS)));

@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 public class Usuario implements Serializable {
 
-
+    private long codigo;
     private String dni;
     private String nombre;
     private String apellidos;
@@ -13,12 +13,21 @@ public class Usuario implements Serializable {
 
     public Usuario(){    }
     public Usuario (String dni, String nombre, String apellidos, String password){
+
         this.dni = dni;
         this.nombre = nombre;
         this.apellidos = apellidos;
         this.password = password;
         this.es_Admin = 0;
 
+    }
+
+    public long getCodigo() {
+        return codigo;
+    }
+
+    public void setCodigo(long codigo) {
+        this.codigo = codigo;
     }
 
     public String getDni() {

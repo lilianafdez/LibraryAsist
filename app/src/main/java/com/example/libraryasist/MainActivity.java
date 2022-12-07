@@ -14,7 +14,9 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.libraryasist.core.Usuario;
 import com.example.libraryasist.model.UsuarioFacade;
+import com.example.libraryasist.view.AddReserva;
 import com.example.libraryasist.view.RegistroView;
+import com.example.libraryasist.view.UsuarioView;
 import com.example.libraryasist.view.Vista_admin;
 
 import java.util.Arrays;
@@ -33,6 +35,7 @@ public class MainActivity extends AppCompatActivity {
 
  //       this.createAdmin();
 
+        //startActivity( new Intent( MainActivity.this, AddReserva.class ) );
 
         botonAcceder.setOnClickListener(new View.OnClickListener() {
             @Override
