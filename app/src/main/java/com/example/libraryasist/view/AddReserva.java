@@ -3,18 +3,26 @@ package com.example.libraryasist.view;
 
 
 import android.annotation.SuppressLint;
-import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.libraryasist.MyApplication;
 import com.example.libraryasist.R;
+import com.example.libraryasist.core.Libro;
 import com.example.libraryasist.database.DBManager;
 import com.example.libraryasist.model.LibroFacade;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class AddReserva extends AppCompatActivity {
 
@@ -28,27 +36,70 @@ public class AddReserva extends AppCompatActivity {
         DBManager dbManager = ((MyApplication) this.getApplication()).getDBManager();
         libroFacade = new LibroFacade(dbManager);
 
+        Button botonAñadir = (Button) this.findViewById(R.id.buttonAddReserva);
+
         ListView listViewLibros = (ListView) this.findViewById(R.id.ListViewLibrosDisponibles);
+
+        ArrayList <Libro> arrayLibros = AddReserva.this.listaLibros();
+        List<String> arrayTitulos = new ArrayList<>();
+
+        for (int i = 0; i < arrayLibros.size(); i++) {
+            arrayTitulos.add(arrayLibros.get(i).getTitulo());
+        }
 
         listViewLibros.setAdapter(
                 new ArrayAdapter<String>(
-                        this, android.R.layout.simple_expandable_list_item_1,
-                        AddReserva.this.listaLibros() )
+                        this, android.R.layout.simple_expandable_list_item_1, arrayTitulos
+                         )
         );
+
+        listViewLibros.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(AddReserva.this);
+                //Libro libro = adapterView.getItemAtPosition(i);
+                builder.setTitle(arrayLibros.get(i).getTitulo());
+
+                String msg = "Autor: "+ arrayLibros.get(i).getAutor()
+                        +"\n\n Quiere reservar este libro?";
+
+                builder.setMessage(msg);
+
+
+                builder.setNegativeButton("Cancelar", null);
+                builder.setPositiveButton("Aceptar", null);
+
+                AlertDialog dialog = builder.create();
+                dialog.show();
+            }
+        });
+
+
+    }
+
+    private void añadirReserva(Libro libro){
+
+
 
     }
 
     @SuppressLint("Range")
-    private String []listaLibros(){
+    private ArrayList<Libro> listaLibros(){
 
-        Cursor librosCursor = libroFacade.getLibro();
+        Cursor librosCursor = libroFacade.getLibros();
 
-        String [] temp = new String[3];
-        int i = 0;
+        ArrayList<Libro> arrayList = new ArrayList<>();
+
         while(librosCursor.moveToNext()){
-            temp[i++]= librosCursor.getString(librosCursor.getColumnIndex(DBManager.LIBROS_TITULO));
+            Libro temp = new Libro();
+
+            temp.setCodigo(librosCursor.getLong(librosCursor.getColumnIndex(DBManager.LIBROS_CODIGO)));
+            temp.setTitulo(librosCursor.getString(librosCursor.getColumnIndex(DBManager.LIBROS_TITULO)));
+            temp.setAutor(librosCursor.getString(librosCursor.getColumnIndex(DBManager.LIBROS_AUTOR)));
+
+            arrayList.add(temp);
         }
 
-        return temp;
+        return arrayList;
     }
 }

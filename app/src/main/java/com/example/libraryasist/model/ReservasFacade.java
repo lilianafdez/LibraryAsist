@@ -115,7 +115,7 @@ public class ReservasFacade extends GeneralFacade{
     }
 
     public Cursor getReservasByUser(String dni){
-        Usuario temp = usuarioFacade.getUsuariosByDni(dni)
+        Usuario temp = usuarioFacade.getUsuariosByDni(dni);
 
         Cursor toret = null;
 

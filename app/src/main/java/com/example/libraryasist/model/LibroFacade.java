@@ -22,7 +22,7 @@ public class LibroFacade extends GeneralFacade {
         if (cursor!=null){
             try {
                 toret = new Libro();
-                toret.setCodigo(cursor.getString(cursor.getColumnIndex(DBManager.LIBROS_CODIGO)));
+                toret.setCodigo(cursor.getLong(cursor.getColumnIndex(DBManager.LIBROS_CODIGO)));
                 toret.setTitulo(cursor.getString(cursor.getColumnIndex(DBManager.LIBROS_TITULO)));
                 toret.setAutor(cursor.getString(cursor.getColumnIndex(DBManager.LIBROS_AUTOR)));
 
@@ -99,7 +99,7 @@ public class LibroFacade extends GeneralFacade {
         }
     }
 
-    public Cursor getLibro(){
+    public Cursor getLibros(){
         Cursor toret = null;
 
         toret = dbManager.getReadableDatabase().rawQuery("SELECT * FROM "+DBManager.LIBROS_TABLE_NAME,

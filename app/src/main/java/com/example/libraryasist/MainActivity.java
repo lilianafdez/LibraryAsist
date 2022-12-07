@@ -35,7 +35,7 @@ public class MainActivity extends AppCompatActivity {
 
  //       this.createAdmin();
 
-        //startActivity( new Intent( MainActivity.this, AddReserva.class ) );
+        startActivity( new Intent( MainActivity.this, AddReserva.class ) );
 
         botonAcceder.setOnClickListener(new View.OnClickListener() {
             @Override

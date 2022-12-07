@@ -3,11 +3,11 @@ package com.example.libraryasist.core;
 import java.io.Serializable;
 
 public class Libro implements Serializable {
-    private String codigo;
+    private long codigo;
     private String titulo;
     private String autor;
 
-    public Libro(String codigo, String titulo, String autor) {
+    public Libro(long codigo, String titulo, String autor) {
         this.codigo = codigo;
         this.titulo = titulo;
         this.autor = autor;
@@ -16,11 +16,11 @@ public class Libro implements Serializable {
 
     }
 
-    public String getCodigo() {
+    public long getCodigo() {
         return codigo;
     }
 
-    public void setCodigo(String codigo) {
+    public void setCodigo(long codigo) {
         this.codigo = codigo;
     }
 

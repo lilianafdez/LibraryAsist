@@ -12,8 +12,6 @@ import com.example.libraryasist.MyApplication;
 import com.example.libraryasist.R;
 import com.example.libraryasist.database.DBManager;
 import com.example.libraryasist.model.LibroFacade;
-import com.example.libraryasist.model.UsuarioFacade;
-
 
 
 public class UsuarioView extends AppCompatActivity {
@@ -43,7 +41,7 @@ public class UsuarioView extends AppCompatActivity {
     @SuppressLint("Range")
     private String []listaLibros(){
 
-        Cursor librosCursor = libroFacade.getLibro();
+        Cursor librosCursor = libroFacade.getLibros();
 
         String [] temp = new String[3];
         int i = 0;
