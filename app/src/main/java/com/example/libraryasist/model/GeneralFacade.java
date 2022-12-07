@@ -18,7 +18,7 @@ public abstract class GeneralFacade {
 
     protected DBManager dbManager;
 
-    private String nombreTabla;
+    private final String nombreTabla;
 
     public GeneralFacade(DBManager dbManager, String nombreTabla){
         this.dbManager=dbManager;
@@ -113,7 +113,5 @@ public abstract class GeneralFacade {
 
         return fecha;
     }
-
-
 
 }

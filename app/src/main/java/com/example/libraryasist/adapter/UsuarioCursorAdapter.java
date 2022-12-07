@@ -9,7 +9,7 @@ import android.widget.CursorAdapter;
 import com.example.libraryasist.model.UsuarioFacade;
 
 public class UsuarioCursorAdapter extends CursorAdapter {
-    private UsuarioFacade usuarioFacade;
+    private final UsuarioFacade usuarioFacade;
 
     public UsuarioCursorAdapter(Context context, Cursor c, UsuarioFacade usuarioFacade) {
         super(context, c, false);

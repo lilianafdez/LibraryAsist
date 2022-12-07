@@ -3,22 +3,15 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/Users/anton/OneDrive/Documentos/DM/LibraryAsist/app/src/main/res/layout/activity_add_libro.xml" value="0.29743589743589743" />
-        <entry key="..\:/Users/anton/OneDrive/Documentos/DM/LibraryAsist/app/src/main/res/layout/activity_add_reserva.xml" value="0.2" />
-        <entry key="..\:/Users/anton/OneDrive/Documentos/DM/LibraryAsist/app/src/main/res/layout/activity_main.xml" value="0.34782608695652173" />
-        <entry key="..\:/Users/anton/OneDrive/Documentos/DM/LibraryAsist/app/src/main/res/layout/listview_libros.xml" value="0.29743589743589743" />
-        <entry key="..\:/Users/anton/OneDrive/Documentos/DM/LibraryAsist/app/src/main/res/layout/registrar_usuario.xml" value="0.29743589743589743" />
-        <entry key="..\:/Users/anton/OneDrive/Documentos/DM/LibraryAsist/app/src/main/res/layout/vista_admin.xml" value="0.3625" />
-        <entry key="..\:/Users/anton/OneDrive/Documentos/DM/LibraryAsist/app/src/main/res/layout/vista_usuario.xml" value="0.25" />
-        <entry key="..\:/Users/anton/OneDrive/Documentos/DM/LibraryAsist/app/src/main/res/menu/context_menu.xml" value="0.15213675213675212" />
-        <entry key="..\:/Users/lilia/AndroidStudioProjects/LibraryAsist/app/src/main/res/layout/activity_main.xml" value="0.16666666666666666" />
+        <entry key="..\:/Users/lilia/AndroidStudioProjects/LibraryAsist/app/src/main/res/layout/activity_add_libro.xml" value="0.3625" />
+        <entry key="..\:/Users/lilia/AndroidStudioProjects/LibraryAsist/app/src/main/res/layout/activity_main.xml" value="0.3625" />
+        <entry key="..\:/Users/lilia/AndroidStudioProjects/LibraryAsist/app/src/main/res/layout/registrar_usuario.xml" value="0.22552083333333334" />
+        <entry key="..\:/Users/lilia/AndroidStudioProjects/LibraryAsist/app/src/main/res/layout/vista_admin.xml" value="0.3625" />
+        <entry key="..\:/Users/lilia/AndroidStudioProjects/LibraryAsist/app/src/main/res/layout/vista_usuario.xml" value="0.3625" />
       </map>
     </option>
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="Android Studio default JDK" project-jdk-type="JavaSDK">
-    <output url="file://$PROJECT_DIR$/build/classes" />
-  </component>
-  <component name="ProjectType">
-    <option name="id" value="Android" />
+  <component name="ProjectRootManager">
+    <output url="file://$PROJECT_DIR$/out" />
   </component>
 </project>

@@ -22,7 +22,6 @@ public class UsuarioFacade extends GeneralFacade {
         if (cursor!=null){
             try {
                 toret = new Usuario();
-                toret.setCodigo(cursor.getLong(cursor.getColumnIndex(DBManager.USUARIOS_ID)));
                 toret.setDni(cursor.getString(cursor.getColumnIndex(DBManager.USUARIOS_DNI)));
                 toret.setNombre(cursor.getString(cursor.getColumnIndex(DBManager.USUARIOS_NOMBRE)));
                 toret.setApellidos(cursor.getString(cursor.getColumnIndex(DBManager.USUARIOS_APELLIDOS)));
@@ -98,7 +97,6 @@ public class UsuarioFacade extends GeneralFacade {
                             + DBManager.USUARIOS_NOMBRE + "=? ,"
                             + DBManager.USUARIOS_APELLIDOS + "=? ,"
                             + DBManager.USUARIOS_PASSWORD + "=? "
-
                             + "WHERE "+DBManager.USUARIOS_DNI +"=?",
                     new Object[]{usuario.getNombre(), usuario.getApellidos(), usuario.getPassword(), usuario.getDni()});
 
@@ -133,7 +131,6 @@ public class UsuarioFacade extends GeneralFacade {
             }
             cursor.close();
         }
-
         return toret;
 
     }
@@ -146,14 +143,13 @@ public class UsuarioFacade extends GeneralFacade {
     }
 
     public Cursor logIn(String user){
-        Cursor usuario=super.getTablaFiltrada(DBManager.USUARIOS_DNI,user);
+        Cursor usuario=this.dbManager.getReadableDatabase().rawQuery("SELECT * FROM " + DBManager.USUARIOS_TABLE_NAME + " WHERE " + DBManager.USUARIOS_DNI + " LIKE ?", new String[]{user});
         if(usuario.getCount()==1) {
             return usuario;
 
         }else{
             return null;
         }
-
     }
 
     public boolean existeAdmin(){

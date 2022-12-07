@@ -10,18 +10,23 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.SimpleCursorAdapter;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.libraryasist.MainActivity;
 import com.example.libraryasist.MyApplication;
 import com.example.libraryasist.R;
 import com.example.libraryasist.adapter.LibrosAdapterCursor;
 import com.example.libraryasist.core.Libro;
+import com.example.libraryasist.core.Usuario;
 import com.example.libraryasist.database.DBManager;
 import com.example.libraryasist.model.LibroFacade;
 
 import java.util.ArrayList;
+import java.util.Locale;
 
 
 public class Vista_admin extends AppCompatActivity {
@@ -103,6 +108,9 @@ public class Vista_admin extends AppCompatActivity {
             case R.id.context_opDel:
                 borrarLibro(libros.getLibroById(id));
                 Toast.makeText(Vista_admin.this,"Libro Borrado con Éxito",Toast.LENGTH_SHORT).show();
+
+                Intent intent = new Intent(Vista_admin.this, Vista_admin.class);
+                Vista_admin.this.startActivity(intent);
                 break;
             case R.id.context_opCancel:
                 Toast.makeText(Vista_admin.this,"Operacion Cancelada",Toast.LENGTH_SHORT).show();
@@ -122,16 +130,16 @@ public class Vista_admin extends AppCompatActivity {
         Libro libro3=new Libro("ISBN333","Cumbres Borrascosas","Emily Bronte");
         Libro libro4=new Libro("ISBN444","Cronica de una Muerte Anunciada","Gabriel Garcia Marquez");
 
-        if(!libros.checkLibro(libro1.getIsbm())){
+        if(!libros.checkLibro(libro1.getCodigo())){
             libros.createLibro(libro1);
         }
-        if(!libros.checkLibro(libro2.getIsbm())){
+        if(!libros.checkLibro(libro2.getCodigo())){
             libros.createLibro(libro2);
         }
-        if(!libros.checkLibro(libro3.getIsbm())){
+        if(!libros.checkLibro(libro3.getCodigo())){
             libros.createLibro(libro3);
         }
-        if(!libros.checkLibro(libro4.getIsbm())){
+        if(!libros.checkLibro(libro4.getCodigo())){
             libros.createLibro(libro4);
         }
 

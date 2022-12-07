@@ -44,7 +44,9 @@ public class MainActivity extends AppCompatActivity {
                     Toast.makeText(MainActivity.this,"NO-ADMIN",Toast.LENGTH_SHORT).show();
                     MainActivity.this.goTo(menu_usuario,"nombeusuario");
                     MainActivity.this.finish();
-                } else if(acceder && admin){
+                }
+
+                else if(acceder && admin){
                     Intent menu_admin=new Intent(MainActivity.this, Vista_admin.class);
                     Toast.makeText(MainActivity.this,"SI-ADMIN",Toast.LENGTH_SHORT).show();
                     MainActivity.this.goTo(menu_admin,"nombreusuario");
@@ -110,5 +112,4 @@ public class MainActivity extends AppCompatActivity {
             this.usuarioDB.createUsuario(admin);
         }
     }
-
 }

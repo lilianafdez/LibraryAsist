@@ -75,7 +75,7 @@ public class UsuarioView extends AppCompatActivity {
         while(librosCursor.moveToNext()){
             Libro temp = new Libro();
 
-            temp.setIsbm(librosCursor.getString(librosCursor.getColumnIndex(DBManager.LIBROS_CODIGO)));
+            temp.setCodigo(librosCursor.getString(librosCursor.getColumnIndex(DBManager.LIBROS_CODIGO)));
             temp.setTitulo(librosCursor.getString(librosCursor.getColumnIndex(DBManager.LIBROS_TITULO)));
             temp.setAutor(librosCursor.getString(librosCursor.getColumnIndex(DBManager.LIBROS_AUTOR)));
 

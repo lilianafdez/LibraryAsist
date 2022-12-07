@@ -8,6 +8,7 @@ import android.widget.EditText;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.libraryasist.MainActivity;
 import com.example.libraryasist.MyApplication;
 import com.example.libraryasist.R;
 import com.example.libraryasist.core.Libro;
@@ -38,7 +39,7 @@ public class AddLibro extends AppCompatActivity {
         botonAddLibro.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Libro libroAnhadir = new Libro( etCodigo.getText().toString(),etTituloLibro.getText().toString(),etAutorLibro.getText().toString());
+                Libro libroAnhadir = new Libro(etCodigo.getText().toString(),etTituloLibro.getText().toString(),etAutorLibro.getText().toString());
                 libroFacade.createLibro(libroAnhadir);
 
                 Intent intent = new Intent(AddLibro.this, Vista_admin.class);
@@ -56,15 +57,5 @@ public class AddLibro extends AppCompatActivity {
                 AddLibro.this.startActivity(volver);
             }
         });
-    }
-
-    public static long convertToLong(String strNum) {
-        long valor;
-        try {
-            valor = Long.parseLong(strNum);
-        } catch (NumberFormatException | NullPointerException nfe) {
-            return 0; //Valor default en caso de no poder convertir  a Long
-        }
-        return valor;
     }
 }

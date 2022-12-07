@@ -35,7 +35,7 @@ public class MyApplication extends Application {
 
     public boolean esAdmin(){
         boolean toret = false;
-        if(logeado.getEs_Admin()  == 1){
+        if(logeado.getEs_Admin() == 1){
             toret = true;
         }
         return toret;
