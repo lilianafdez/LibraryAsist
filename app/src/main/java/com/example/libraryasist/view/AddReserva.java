@@ -41,6 +41,7 @@ public class AddReserva extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_reserva);
 
+
         DBManager dbManager = ((MyApplication) this.getApplication()).getDBManager();
         libroFacade = new LibroFacade(dbManager);
         reservasFacade = new ReservasFacade(dbManager);
@@ -53,19 +54,21 @@ public class AddReserva extends AppCompatActivity {
 
         ListView listViewLibros = (ListView) this.findViewById(R.id.ListViewLibrosDisponibles);
 
+        //Se crean los array que contiene los libros no reservados y el array que muestra los titulos en el listView
         ArrayList <Libro> arrayLibros = AddReserva.this.listaLibros();
         List<String> arrayTitulos = new ArrayList<>();
 
         for (int i = 0; i < arrayLibros.size(); i++) {
             arrayTitulos.add(arrayLibros.get(i).getTitulo());
         }
-
+        //asociamos el array de titulos al listView
         listViewLibros.setAdapter(
                 new ArrayAdapter<String>(
                         this, android.R.layout.simple_expandable_list_item_1, arrayTitulos
                          )
         );
 
+        //añadimos un listener para reservar un libro
         listViewLibros.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
@@ -87,9 +90,10 @@ public class AddReserva extends AppCompatActivity {
 
     }
 
+    //funcion encargada de mostrar el dialogo de confirmacion para añadir
     private void mostrarAlertDialog (View v, Libro libro){
         AlertDialog.Builder builder = new AlertDialog.Builder(AddReserva.this);
-        //Libro libro = adapterView.getItemAtPosition(i);
+
         builder.setTitle(libro.getTitulo());
 
         String msg = "Autor: "+ libro.getAutor()

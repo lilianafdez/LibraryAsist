@@ -62,7 +62,7 @@ public class ReservasFacade extends GeneralFacade{
         }
     }
 
-
+    //funcion que comprueba las reservas de un usuario
     public Cursor getReservasByUser(String dni){
         Usuario temp = usuarioFacade.getUsuariosByDni(dni);
 

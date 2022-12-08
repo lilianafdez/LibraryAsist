@@ -77,6 +77,7 @@ public class UsuarioFacade extends GeneralFacade {
         return toret;
     }
 
+    //Funcion que busca a un usuario por el dni
     public Usuario getUsuariosByDni(String dni) {
         Usuario toret = null;
         if (dni!=null){
@@ -102,6 +103,7 @@ public class UsuarioFacade extends GeneralFacade {
         return toret;
     }
 
+    //fucion para comprobar el login de un usuario
     public Cursor logIn(String user){
         Cursor usuario=this.dbManager.getReadableDatabase().rawQuery("SELECT * FROM " + DBManager.USUARIOS_TABLE_NAME + " WHERE " + DBManager.USUARIOS_DNI + " LIKE ?", new String[]{user});
         if(usuario.getCount()==1) {
@@ -112,6 +114,7 @@ public class UsuarioFacade extends GeneralFacade {
         }
     }
 
+    //funcion que comprueba si el usuaario es admin
     public boolean existeAdmin(){
         boolean toret=true;
         String nombre="admin";

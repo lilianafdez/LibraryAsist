@@ -53,33 +53,34 @@ public class UsuarioView extends AppCompatActivity {
         setContentView(R.layout.vista_usuario);
 
         DBManager dbManager = ((MyApplication) this.getApplication()).getDBManager();
+        //Inicializamos las clases fachadas
         reservasFacade = new ReservasFacade(dbManager);
         libroFacade = new LibroFacade(dbManager);
         usuarioFacade = new UsuarioFacade(dbManager);
-        this.createLibros();
+        this.createLibros(); //Introduce unos libros de prueba
 
+        //Guardamos informacion del usuario logeado para poder mostrar las reservas
         String dni = getIntent().getStringExtra("dniUsuario");
-
         usuarioActual = usuarioFacade.getUsuariosByDni(dni);
 
 
+        //asociamos los botones y el listView
         listViewLibros = (ListView) this.findViewById(R.id.listViewReserva);
         Button botonAñadir = (Button) this. findViewById(R.id.buttonVistaAñadirReserva);
         Button botonEliminar = (Button) this. findViewById(R.id.buttonEliminarReservas);
 
 
-
-
-        UsuarioView.this.actualizarListView();
+        UsuarioView.this.actualizarListView();//funcion encargada de cargar los datos en el listView
 
         botonEliminar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                UsuarioView.this.borrarReservas(filas);
+                UsuarioView.this.borrarReservas(filas);//funcion encargada de borrar las reservas selecionadas
 
             }
         });
 
+        //al clickar te envia a la vista de añadir
         botonAñadir.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -95,23 +96,25 @@ public class UsuarioView extends AppCompatActivity {
 
     private void actualizarListView (){
         arrayReservas = new ArrayList<>();
-        arrayReservas = listaReserva();
-        filas = new ArrayList<>();
+        arrayReservas = listaReserva();//obtemos la lista de reservas
+        filas = new ArrayList<>();//el array que se asocia al listView
 
         for (int i = 0; i < arrayReservas.size(); i++) {
             filas.add(i, new ListViewReservas(arrayReservas.get(i).getLibro().getTitulo(), arrayReservas.get(i).getLibro().getId()));
+            //añadimos los titulos y codigos de los libros
         }
-        this.adaptadorArray = new ReservasArrayAdapter(this, filas);
+        this.adaptadorArray = new ReservasArrayAdapter(this, filas); //asociamos la lista de los titulos al array
 
-        listViewLibros.setAdapter(this.adaptadorArray);
+        listViewLibros.setAdapter(this.adaptadorArray); //establecemos el adaptador al listView
 
+        //creamos un listener que cuando se pulse la reserva se seleccione o deseleccione el chek para eliminar
         listViewLibros.setOnItemClickListener(new AdapterView.OnItemClickListener(
                                               ) {
                                                   @Override
                                                   public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
 
                                                       UsuarioView.this.adaptadorArray.getItem(i).invertirSeleccion();
-                                                      UsuarioView.this.adaptadorArray.notifyDataSetChanged();
+                                                      UsuarioView.this.adaptadorArray.notifyDataSetChanged(); //actualizamos los cambios
 
 
                                                   }
@@ -123,7 +126,7 @@ public class UsuarioView extends AppCompatActivity {
 
     @SuppressLint("Range")
     private List<String> listaLibros(){
-
+        //Listamos los libros
         Cursor librosCursor = libroFacade.getLibros();
 
         ArrayList<String> arrayList = new ArrayList<>();
@@ -138,11 +141,12 @@ public class UsuarioView extends AppCompatActivity {
 
     @SuppressLint("Range")
     private ArrayList<Reserva> listaReserva(){
-
+        //Listamos las reservas del usuario logueado a traves de un cursor
         Cursor librosCursor = reservasFacade.getReservasByUser(usuarioActual.getDni());
 
         ArrayList<Reserva> arrayList = new ArrayList<>();
 
+        //Extraemos los libros del cursor
         while(librosCursor.moveToNext()){
 
 
@@ -156,13 +160,14 @@ public class UsuarioView extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
+        //Creamos el menu de desconexion
         this.getMenuInflater().inflate(R.menu.menu_general,menu);
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-
+        //Creamos las opciones del menu
         switch (item.getItemId()){
 
             case R.id.miLogOut:
@@ -181,16 +186,17 @@ public class UsuarioView extends AppCompatActivity {
 
     private void borrarReservas(List<ListViewReservas> arrayReservas){
 
-        List<Reserva> arrayLibrosEliminar = new ArrayList<>();
+        List<Reserva> arrayLibrosEliminar = new ArrayList<>();//Inicializamos el array de los libros seleccionados para eliminar
 
         for (int i = 0; i < arrayReservas.size(); i++) {
-            if(arrayReservas.get(i).isCheked()){
+            if(arrayReservas.get(i).isCheked()){ //Se comprueba que la reserva este selecionado para poder elimianr
                 Libro temp = libroFacade.getLibroById(arrayReservas.get(i).getId());
                 Reserva reservaAñadir = new Reserva(usuarioActual, temp);
-                arrayLibrosEliminar.add(reservaAñadir);
+                arrayLibrosEliminar.add(reservaAñadir); //añadimos la reserva a eliminar
             }
         }
 
+        //Si hay reservas introducidas se crea un alertDialog de confirmacion
         if(arrayLibrosEliminar.size()>0){
             AlertDialog.Builder builder = new AlertDialog.Builder(UsuarioView.this);
             builder.setTitle("Eliminar reservas");
@@ -202,24 +208,25 @@ public class UsuarioView extends AppCompatActivity {
             }
             builder.setMessage(msg);
             builder.setNegativeButton("Cancelar", null);
+            //Si aceptas se elimina las reservas selecionadas
             builder.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialogInterface, int i) {
                     for (int j = 0; j < arrayLibrosEliminar.size(); j++) {
-                        reservasFacade.removeLibro(arrayLibrosEliminar.get(j));
-                        Libro libroSinReserva = arrayLibrosEliminar.get(j).getLibro();
+                        reservasFacade.removeLibro(arrayLibrosEliminar.get(j));//usamos la clase fachada para eliminar las reservas
+                        Libro libroSinReserva = arrayLibrosEliminar.get(j).getLibro(); //Se quita la reserva del libro
                         libroSinReserva.setReservado(0);
-                        libroFacade.updateLibro(libroSinReserva);
+                        libroFacade.updateLibro(libroSinReserva);//actualizamos la informacion del libro
 
 
-                        UsuarioView.this.actualizarListView();
+                        UsuarioView.this.actualizarListView();// actualizamos la listView para quitar las reservas eliminadas
                         UsuarioView.this.adaptadorArray.notifyDataSetChanged();
 
                     }
                 }
             });
             AlertDialog dialog = builder.create();
-            dialog.show();
+            dialog.show();// mostramos el dialog
 
 
         }else{

@@ -115,6 +115,7 @@ public class LibroFacade extends GeneralFacade {
         return toret;
     }
 
+    //funcion que comprueba si existe el libro
     public boolean checkLibro(String codigo){
         Cursor libro=this.dbManager.getReadableDatabase().rawQuery("SELECT * FROM "
                 + DBManager.LIBROS_TABLE_NAME + " WHERE " + DBManager.LIBROS_CODIGO + " LIKE ?", new String[]{codigo});

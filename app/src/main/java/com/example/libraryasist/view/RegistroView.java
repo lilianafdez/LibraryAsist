@@ -32,30 +32,31 @@ public class RegistroView extends AppCompatActivity {
 
         DBManager dbManager = ((MyApplication) this.getApplication()).getDBManager();
 
-        usuarioFacade = new UsuarioFacade(dbManager);
+        usuarioFacade = new UsuarioFacade(dbManager); //se inicializa la clase fachada de usuario
 
-        Button botonRegistrar = (Button) findViewById(R.id.buttonRegistrarUsuario);
-        Button botonVolver = (Button) findViewById(R.id.buttonVolverRegistrar);
+        Button botonRegistrar = (Button) findViewById(R.id.buttonRegistrarUsuario); //boton para registar
+        Button botonVolver = (Button) findViewById(R.id.buttonVolverRegistrar); //boton para volve al Login por si no quieres registrarse
 
-
+        //EditText de los datos para registrarse
         EditText dniIntroducido = (EditText) findViewById(R.id.editTextDniRegistrar);
         EditText nombreIntroducido = (EditText) findViewById(R.id.editTextNombreRegistrar);
         EditText apellidosIntroducido = (EditText) findViewById(R.id.editTextApellidosRegistrar);
         EditText passwordIntroducido = (EditText) findViewById(R.id.editTextPasswordRegistrar);
 
+        //Se comprueba si se pulsa el boton
         botonRegistrar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-                if (!RegistroView.this.comprobarVacio()){
-                    if(RegistroView.this.comprobarDni(dniIntroducido.getText().toString().toUpperCase())){
-                        if(!RegistroView.this.nombreUsuarioOcupado(dniIntroducido.getText().toString().toUpperCase())){
+                if (!RegistroView.this.comprobarVacio()){ // funcion que comprueba si los EditText estan vacios
+                    if(RegistroView.this.comprobarDni(dniIntroducido.getText().toString().toUpperCase())){ //Funcion que comprueba el formato del dni
+                        if(!RegistroView.this.nombreUsuarioOcupado(dniIntroducido.getText().toString().toUpperCase())){ //Funcion que comprueba si el dni esta introducido
                             Usuario usuarioRegistrar = new Usuario(dniIntroducido.getText().toString().toUpperCase(), nombreIntroducido.getText().toString(),
-                                    apellidosIntroducido.getText().toString(), passwordIntroducido.getText().toString());
+                                    apellidosIntroducido.getText().toString(), passwordIntroducido.getText().toString()); //Se crea el usuario a registrar
 
-                            usuarioFacade.createUsuario(usuarioRegistrar);
+                            usuarioFacade.createUsuario(usuarioRegistrar); //se introduce el usuario a la base de datos a traves de la clase fachada
 
-                            Intent intent = new Intent(RegistroView.this, MainActivity.class);
+                            Intent intent = new Intent(RegistroView.this, MainActivity.class); //Cuando se registra el usuario se manda al Login
 
                             RegistroView.this.startActivity(intent);
                             RegistroView.this.finish();
@@ -89,6 +90,7 @@ public class RegistroView extends AppCompatActivity {
 
     }
 
+    //funcion que muestra los errores en el registro
     public static void dialogoErrorDatos(String msg, Context context) {
         AlertDialog.Builder dlg=new AlertDialog.Builder(context);
         dlg.setTitle("Error");
