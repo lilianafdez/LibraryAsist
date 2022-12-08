@@ -89,9 +89,9 @@ public class MainActivity extends AppCompatActivity {
         EditText user=this.findViewById(R.id.editTextUsuario);
         EditText password=this.findViewById(R.id.editTextPassword);
 
-        this.dniUsuario = user.getText().toString();
+        this.dniUsuario = user.getText().toString().toUpperCase();
 
-        Cursor usuario=this.usuarioDB.logIn(user.getText().toString());
+        Cursor usuario=this.usuarioDB.logIn(user.getText().toString().toUpperCase());
         String passwordIntroducida = password.getText().toString();
         user.getText().clear();
         password.getText().clear();
