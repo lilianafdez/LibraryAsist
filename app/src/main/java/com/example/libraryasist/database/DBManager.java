@@ -37,7 +37,7 @@ public class DBManager extends SQLiteOpenHelper{
     public static String USUARIO_LIBROS_USUARIO_ID = "_id_USUARIO";
     public static String USUARIO_LIBROS_LIBRO_ID = "_id_LIBRO";
 
-    //public static final String LIBROS_CODIGO = USUARIO_LIBROS_USUARIO_ID;
+
     public DBManager(@Nullable Context context){
         super(context,DB_NOMBRE,null,DB_VERSION);
     }
@@ -48,7 +48,7 @@ public class DBManager extends SQLiteOpenHelper{
         Log.i(DB_NOMBRE,"Creando la base de datos");
         try {
             db.beginTransaction();
-            //CREACION DE TABLA DE USUARIOS
+            //CREACIÓN DE TABLA DE USUARIOS
             db.execSQL("CREATE TABLE IF NOT EXISTS " + USUARIOS_TABLE_NAME +"(" +
                     _id +" INTEGER PRIMARY KEY," +
                     USUARIOS_DNI + " TEXT NOT NULL UNIQUE," +
@@ -59,7 +59,7 @@ public class DBManager extends SQLiteOpenHelper{
                     ")");
 
 
-            //CREACION DE TABLA DE LIBROS
+            //CREACIÓN DE TABLA DE LIBROS
             db.execSQL("CREATE TABLE IF NOT EXISTS " + LIBROS_TABLE_NAME +"(" +
                     _id +" INTEGER PRIMARY KEY," +
                     LIBROS_CODIGO + " TEXT NOT NULL UNIQUE," +
@@ -68,7 +68,7 @@ public class DBManager extends SQLiteOpenHelper{
                     LIBROS_RESERVADO + " INTEGER NOT NULL" +
                     ")");
 
-            //CREACION DE TABLA DE LIBROS RESERVADOS POR UN USUARIO
+            //CREACIÓN DE TABLA DE LIBROS RESERVADOS POR UN USUARIO
             db.execSQL("CREATE TABLE IF NOT EXISTS " + USUARIO_LIBROS_TABLE_NAME +"(" +
                     USUARIO_LIBROS_USUARIO_ID+" INTEGER," +
                     USUARIO_LIBROS_LIBRO_ID + " INTEGER,"+
@@ -92,15 +92,15 @@ public class DBManager extends SQLiteOpenHelper{
         try {
 
             sqLiteDatabase.beginTransaction();
-            //ELIMINACION DE TABLA DE USUARIOS
+            //ELIMINACIÓN DE TABLA DE USUARIOS
             sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + USUARIOS_TABLE_NAME);
 
 
-            //ELIMINACION DE TABLA DE LIBROS
+            //ELIMINACIÓN DE TABLA DE LIBROS
             sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + LIBROS_TABLE_NAME);
 
 
-            //ELIMINACION DE TABLA DE LIBROS POR USUARIO
+            //ELIMINACIÓN DE TABLA DE LIBROS POR USUARIO
             sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + USUARIO_LIBROS_TABLE_NAME);
 
 

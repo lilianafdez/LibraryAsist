@@ -35,7 +35,8 @@ public class AddLibro extends AppCompatActivity {
         EditText etTituloLibro = this.findViewById(R.id.editTextTitulo);
         EditText etAutorLibro = this.findViewById(R.id.editTextAutor);
 
-
+        //Al pulsar en "Añadir", se crea un nuevo libro con los datos introducidos y se añade a la BBDD.
+        //Se vuelve a llamar a Vista_admin para actualizar el listview de libros.
         botonAddLibro.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -49,7 +50,7 @@ public class AddLibro extends AppCompatActivity {
             }
         });
 
-
+        //Al pulsar en "Volver", se llama a la vista de administrador.
         botonVolver.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

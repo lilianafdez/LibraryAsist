@@ -36,10 +36,11 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 boolean acceder=MainActivity.this.checkLogIn();
+                //Se comprueba si es un administrador.
                 if(acceder){
                     MainActivity.this.admin=((MyApplication)MainActivity.this.getApplication()).esAdmin();
                 }
-
+                //Si no es administrador, se accede a la vista de usuario.
                 if(acceder && !admin){
                     Intent menu_usuario=new Intent(MainActivity.this, UsuarioView.class);
 
@@ -47,13 +48,14 @@ public class MainActivity extends AppCompatActivity {
 
                     MainActivity.this.finish();
                 }
-
+                //Si es administrador, se accede a la vista de administrador.
                 else if(acceder && admin){
                     Intent menu_admin=new Intent(MainActivity.this, Vista_admin.class);
                     MainActivity.this.goTo(menu_admin,dniUsuario);
                     MainActivity.this.finish();
 
                 }
+                //Si el usuario no existe, se lanza un mensaje para indicar que los datos no son correctos.
                 else{
                     Toast.makeText(MainActivity.this,"Usuario o contraseña incorrecta",Toast.LENGTH_SHORT).show();
                 }
@@ -62,6 +64,7 @@ public class MainActivity extends AppCompatActivity {
 
         Button botonRegistrarse = (Button) this.findViewById(R.id.buttonCambiarRegistrar);
 
+        //Si se pulsa el botón registrarse, se accede a la vista de registro.
         botonRegistrarse.setOnClickListener(new View.OnClickListener() {
                                                 @Override
                                                 public void onClick(View view) {
@@ -74,11 +77,13 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    //Inicia la actividad que se recibe pasando el dni del usuario que se loguea.
     private void goTo(Intent intent, String dni){
         intent.putExtra("dniUsuario",dni);
         this.startActivity(intent);
     }
 
+    //Comprueba si el usuario introducido existe en la BBDD.
     private boolean checkLogIn() {
         boolean toret=false;
 
@@ -108,6 +113,7 @@ public class MainActivity extends AppCompatActivity {
         return toret;
     }
 
+    //Creamos un usuario administrador comprobando antes si ya existe.
     private void createAdmin(){
         Usuario admin=new Usuario("admin","admin","admin","admin");
         admin.setEs_Admin(1);

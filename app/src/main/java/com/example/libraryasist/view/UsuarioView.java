@@ -63,7 +63,6 @@ public class UsuarioView extends AppCompatActivity {
         String dni = getIntent().getStringExtra("dniUsuario");
         usuarioActual = usuarioFacade.getUsuariosByDni(dni);
 
-
         //asociamos los botones y el listView
         listViewLibros = (ListView) this.findViewById(R.id.listViewReserva);
         Button botonAñadir = (Button) this. findViewById(R.id.buttonVistaAñadirReserva);

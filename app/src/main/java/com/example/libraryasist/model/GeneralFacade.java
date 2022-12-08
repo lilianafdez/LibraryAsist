@@ -25,68 +25,6 @@ public abstract class GeneralFacade {
         this.nombreTabla=nombreTabla;
     }
 
-
-    public Cursor getElements(){
-        Cursor toret=null;
-
-        toret=this.dbManager.getReadableDatabase().rawQuery("SELECT * FROM "+nombreTabla,null);
-
-        return toret;
-    }
-
-    public boolean createObjectInDB(String query, Object[] objects){
-        SQLiteDatabase writableDatabase = dbManager.getWritableDatabase();
-        boolean toret=false;
-        try{
-            writableDatabase.beginTransaction();
-            writableDatabase.execSQL(query, objects);
-            writableDatabase.setTransactionSuccessful();
-            toret=true;
-        }catch(SQLException exception){
-            Log.e("INSERT ACTION ",exception.getMessage());
-        }finally {
-            writableDatabase.endTransaction();
-            return toret;
-        }
-    }
-
-    public boolean deleteElement(String atributo,Object valor){
-        SQLiteDatabase db=this.dbManager.getWritableDatabase();
-
-        boolean toret=false;
-
-        try{
-            db.beginTransaction();
-            db.execSQL("DELETE FROM "+this.nombreTabla+" WHERE "+atributo+" == ?",new Object[]{valor
-            });
-            db.setTransactionSuccessful();
-            toret=true;
-        }catch (SQLException exc){
-            Log.e("DELETE ACTION",exc.getMessage());
-        }finally{
-            db.endTransaction();
-            return toret;
-        }
-    }
-    public boolean updateElement(String whereClause, ContentValues valores,String[] whereParams){
-        SQLiteDatabase db=this.dbManager.getWritableDatabase();
-
-        boolean toret=false;
-
-        try{
-            db.beginTransaction();
-            db.update(this.nombreTabla,valores,whereClause,whereParams);
-            db.setTransactionSuccessful();
-            toret=true;
-        }catch (SQLException exc){
-            Log.e("UPDATE ACTION",exc.getMessage());
-        }finally {
-            db.endTransaction();
-            return toret;
-        }
-    }
-
-
     public Cursor getById(long id){
         Cursor toret=null;
 

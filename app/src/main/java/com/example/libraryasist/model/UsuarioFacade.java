@@ -36,12 +36,6 @@ public class UsuarioFacade extends GeneralFacade {
         return toret;
     }
 
-    public Usuario getUsuarioById(long id){
-        Cursor c=super.getById(id);
-        c.moveToFirst();
-        return UsuarioFacade.readUsuario(c);
-    }
-
     public void createUsuario(Usuario usuario) {
         SQLiteDatabase writableDatabase = dbManager.getWritableDatabase();
         try{

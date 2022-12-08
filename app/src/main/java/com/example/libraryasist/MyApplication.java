@@ -16,18 +16,6 @@ public class MyApplication extends Application {
         super.onCreate();
         this.db=new DBManager(this.getApplicationContext());
     }
-/*
-    public long getId_user_logged(){
-        return this.id_user_logged;
-    }
-    public Usuario getUserLogged(){
-        return this.logeado;
-    }
-*/
-    public void updateUserLogged(){
-        UsuarioFacade uf=new UsuarioFacade(this.db);
-        this.logeado=uf.getUsuarioById(id_user_logged);
-    }
 
     public void setLogeado(Usuario logeado) {
         this.logeado = logeado;

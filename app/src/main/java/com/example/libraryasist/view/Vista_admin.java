@@ -50,7 +50,7 @@ public class Vista_admin extends AppCompatActivity {
         DBManager db=((MyApplication) this.getApplication()).getDBManager();
         this.libros=new LibroFacade(db);
 
-        Button btAdd=(Button) this.findViewById(R.id.buttonAnhadirLibro);
+        Button btAdd= this.findViewById(R.id.buttonAnhadirLibro);
         this.createLibros();
 
         Cursor cursorlibros = this.libros.getLibros();
@@ -61,15 +61,7 @@ public class Vista_admin extends AppCompatActivity {
         this.registerForContextMenu(listViewLibros);
 
         this.listViewLibros.setAdapter(librosAdapter);
-
-        this.listViewLibros.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-
-
-            }
-        });
-
+        //Al pulsar en "Añadir", se llama a la vista AddLibro para poder añadir un nuevo libro a la BBDD.
         btAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -78,7 +70,7 @@ public class Vista_admin extends AppCompatActivity {
             }
         });
     }
-
+    //Cuando se restaura la actividad, se actualiza el listview.
     @Override
     public void onResume() {
         super.onResume();
@@ -92,7 +84,7 @@ public class Vista_admin extends AppCompatActivity {
 
         this.listViewLibros.setAdapter(librosAdapter);
     }
-
+    //Cerrar el cursor cuando se pare la actividad.
     @Override
     public void onStop(){
         super.onStop();
@@ -100,7 +92,7 @@ public class Vista_admin extends AppCompatActivity {
             this.librosAdapter.getCursor().close();
         }
     }
-
+    //MENÚ GENERAL PARA QUE EL USUARIO PUEDA DESCONECTARSE DE LA SESIÓN.
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         this.getMenuInflater().inflate(R.menu.menu_general,menu);
@@ -125,7 +117,7 @@ public class Vista_admin extends AppCompatActivity {
         }
         return true;
     }
-
+    //MENÚ CONTEXTUAL QUE PERMITE BORRAR UN LIBRO MANTENIENDO PULSADO SOBRE ÉL.
     public void onCreateContextMenu(ContextMenu contxt, View v, ContextMenu.ContextMenuInfo cmi){
         if(v.getId() == R.id.lvAdmin){
             this.getMenuInflater().inflate(R.menu.context_menu, contxt);
@@ -151,6 +143,7 @@ public class Vista_admin extends AppCompatActivity {
         libros.removeLibro(libro);
     }
 
+    //Se crean 4 libros para que ya existan en la BBDD al iniciar la aplicación.
     private void createLibros(){
         Libro libro1=new Libro("ISBN111","El Quijote","Cervantes");
         Libro libro2=new Libro("ISBN222","La Fundacion","Antonio Buero Vallejo");
@@ -171,6 +164,7 @@ public class Vista_admin extends AppCompatActivity {
         }
     }
 
+    //Función para mostrar un diálogo que pregunte al administrador si está seguro de querer borrar el libro seleccionado.
     private void mostrarAlertDialog (Libro libro){
         AlertDialog.Builder builder = new AlertDialog.Builder(Vista_admin.this);
         builder.setTitle(libro.getTitulo());
@@ -183,10 +177,11 @@ public class Vista_admin extends AppCompatActivity {
 
         builder.setNegativeButton("Cancelar", null);
         builder.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
+            //Al pulsar "Aceptar", se elimina el libro y se informa al admin de que se ha realizado con éxito.
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 borrarLibro(libro);
-                Toast.makeText(Vista_admin.this,"Libro Borrado con Éxito",Toast.LENGTH_SHORT).show();
+                Toast.makeText(Vista_admin.this,"Libro borrado con éxito",Toast.LENGTH_SHORT).show();
 
                 Intent intent = new Intent(Vista_admin.this, Vista_admin.class);
                 Vista_admin.this.startActivity(intent);
