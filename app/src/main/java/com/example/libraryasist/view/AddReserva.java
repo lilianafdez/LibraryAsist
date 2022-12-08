@@ -105,6 +105,8 @@ public class AddReserva extends AppCompatActivity {
                 reservasFacade.createReservas(reserva);
                 Intent intent = new Intent(AddReserva.this, UsuarioView.class);
 
+                intent.putExtra("usuarioLogueado",usuarioActual.getDni());
+
                 AddReserva.this.startActivity(intent);
                 AddReserva.this.finish();
 

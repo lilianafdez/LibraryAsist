@@ -104,13 +104,7 @@ public class UsuarioView extends AppCompatActivity {
         while(librosCursor.moveToNext()){
 
 
-            Libro temp = new Libro();
-
-            temp.setId(librosCursor.getLong(librosCursor.getColumnIndex(DBManager.LIBROS_ID)));
-            temp.setCodigo(librosCursor.getString(librosCursor.getColumnIndex(DBManager.LIBROS_CODIGO)));
-            temp.setTitulo(librosCursor.getString(librosCursor.getColumnIndex(DBManager.LIBROS_TITULO)));
-            temp.setAutor(librosCursor.getString(librosCursor.getColumnIndex(DBManager.LIBROS_AUTOR)));
-
+            Libro temp = libroFacade.getLibroById(librosCursor.getLong(librosCursor.getColumnIndex(DBManager.USUARIO_LIBROS_LIBRO_ID)));
 
             arrayList.add(new Reserva(usuarioActual,temp));
         }
