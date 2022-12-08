@@ -3,6 +3,7 @@ package com.example.libraryasist.core;
 import java.io.Serializable;
 
 public class Libro implements Serializable {
+    private long id;
     private String codigo;
     private String titulo;
     private String autor;
@@ -16,6 +17,14 @@ public class Libro implements Serializable {
     }
     public Libro() {
 
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 
     public String getCodigo() {

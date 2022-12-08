@@ -65,7 +65,7 @@ public class DBManager extends SQLiteOpenHelper{
                     LIBROS_CODIGO + " TEXT NOT NULL UNIQUE," +
                     LIBROS_TITULO + " TEXT NOT NULL," +
                     LIBROS_AUTOR + " TEXT NOT NULL," +
-                    LIBROS_RESERVADO + " INTEGER" +
+                    LIBROS_RESERVADO + " INTEGER NOT NULL" +
                     ")");
 
             //CREACION DE TABLA DE LIBROS RESERVADOS POR UN USUARIO

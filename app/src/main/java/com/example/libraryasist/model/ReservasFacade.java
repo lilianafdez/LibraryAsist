@@ -54,7 +54,7 @@ public class ReservasFacade extends GeneralFacade{
                             ","+
                             DBManager.USUARIO_LIBROS_LIBRO_ID +
                             ") VALUES (?,?)"
-                    , new Object[]{reserva.getUsuario().getCodigo(), reserva.getLibro().getCodigo()});
+                    , new Object[]{reserva.getUsuario().getCodigo(), reserva.getLibro().getId()});
             writableDatabase.setTransactionSuccessful();
         }catch(SQLException exception){
             Log.e(ReservasFacade.class.getName(), "createReserva", exception);
@@ -120,8 +120,9 @@ public class ReservasFacade extends GeneralFacade{
         Cursor toret = null;
 
         toret = dbManager.getReadableDatabase().rawQuery("SELECT * FROM "+DBManager.USUARIO_LIBROS_TABLE_NAME+
-                        " WHERE " + DBManager.USUARIO_LIBROS_USUARIO_ID + "=" + temp.getCodigo(),
-                null);
+                        " WHERE " + DBManager.USUARIO_LIBROS_USUARIO_ID + " LIKE " + temp.getCodigo(),
+                new String[]{});
+        //new String[]{temp.getCodigo()});
 
         return toret;
     }

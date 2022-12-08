@@ -22,6 +22,7 @@ public class LibroFacade extends GeneralFacade {
         if (cursor!=null){
             try {
                 toret = new Libro();
+                toret.setId(cursor.getLong(cursor.getColumnIndex(DBManager.LIBROS_ID)));
                 toret.setCodigo(cursor.getString(cursor.getColumnIndex(DBManager.LIBROS_CODIGO)));
                 toret.setTitulo(cursor.getString(cursor.getColumnIndex(DBManager.LIBROS_TITULO)));
                 toret.setAutor(cursor.getString(cursor.getColumnIndex(DBManager.LIBROS_AUTOR)));
@@ -117,12 +118,13 @@ public class LibroFacade extends GeneralFacade {
     public static long getID(Cursor libro) {
         long toret;
 
-        toret=libro.getLong(libro.getColumnIndex(DBManager.LIBROS_ID));
+        toret=libro.getLong(libro.getColumnIndex(DBManager.LIBROS_CODIGO));
         return toret;
     }
 
-    public boolean checkLibro(String isbn){
-        Cursor libro=this.dbManager.getReadableDatabase().rawQuery("SELECT * FROM " + DBManager.LIBROS_TABLE_NAME + " WHERE " + DBManager.LIBROS_CODIGO + " LIKE ?", new String[]{isbn});
+    public boolean checkLibro(String codigo){
+        Cursor libro=this.dbManager.getReadableDatabase().rawQuery("SELECT * FROM "
+                + DBManager.LIBROS_TABLE_NAME + " WHERE " + DBManager.LIBROS_CODIGO + " LIKE ?", new String[]{codigo});
         if(libro.getCount()==1) {
             return true;
 
@@ -130,5 +132,6 @@ public class LibroFacade extends GeneralFacade {
             return false;
         }
     }
+
 
 }

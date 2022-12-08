@@ -21,6 +21,7 @@ public class MainActivity extends AppCompatActivity {
 
     private UsuarioFacade usuarioDB;
     private boolean admin;
+    private String dniUsuario;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,8 +42,12 @@ public class MainActivity extends AppCompatActivity {
 
                 if(acceder && !admin){
                     Intent menu_usuario=new Intent(MainActivity.this, UsuarioView.class);
+
+
+                    menu_usuario.putExtra("usuarioLogueado",dniUsuario);
+
                     Toast.makeText(MainActivity.this,"NO-ADMIN",Toast.LENGTH_SHORT).show();
-                    MainActivity.this.goTo(menu_usuario,"nombeusuario");
+                    MainActivity.this.goTo(menu_usuario,"nombreusuario");
                     MainActivity.this.finish();
                 }
 
@@ -83,6 +88,8 @@ public class MainActivity extends AppCompatActivity {
 
         EditText user=this.findViewById(R.id.editTextUsuario);
         EditText password=this.findViewById(R.id.editTextPassword);
+
+        this.dniUsuario = user.getText().toString();
 
         Cursor usuario=this.usuarioDB.logIn(user.getText().toString());
         String passwordIntroducida = password.getText().toString();
