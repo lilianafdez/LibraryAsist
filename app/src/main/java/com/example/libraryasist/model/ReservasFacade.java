@@ -73,7 +73,7 @@ public class ReservasFacade extends GeneralFacade{
                             + " WHERE "
                             + DBManager.USUARIO_LIBROS_USUARIO_ID +"=? AND "
                             + DBManager.USUARIO_LIBROS_LIBRO_ID + "=?"
-                    , new Object[]{reserva.getUsuario().getCodigo(), reserva.getLibro().getCodigo()});
+                    , new Object[]{reserva.getUsuario().getCodigo(), reserva.getLibro().getId()});
             writableDatabase.setTransactionSuccessful();
         }catch(SQLException exception){
             Log.e(ReservasFacade.class.getName(), "removeReserva", exception);
