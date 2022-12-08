@@ -173,7 +173,6 @@ public class Vista_admin extends AppCompatActivity {
 
     private void mostrarAlertDialog (Libro libro){
         AlertDialog.Builder builder = new AlertDialog.Builder(Vista_admin.this);
-        //Libro libro = adapterView.getItemAtPosition(i);
         builder.setTitle(libro.getTitulo());
 
         String msg = "Autor: "+ libro.getAutor()

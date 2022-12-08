@@ -115,14 +115,6 @@ public class LibroFacade extends GeneralFacade {
         return toret;
     }
 
-    @SuppressLint("Range")
-    public static long getID(Cursor libro) {
-        long toret;
-
-        toret=libro.getLong(libro.getColumnIndex(DBManager.LIBROS_CODIGO));
-        return toret;
-    }
-
     public boolean checkLibro(String codigo){
         Cursor libro=this.dbManager.getReadableDatabase().rawQuery("SELECT * FROM "
                 + DBManager.LIBROS_TABLE_NAME + " WHERE " + DBManager.LIBROS_CODIGO + " LIKE ?", new String[]{codigo});

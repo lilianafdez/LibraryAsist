@@ -68,47 +68,6 @@ public class UsuarioFacade extends GeneralFacade {
         }
     }
 
-
-    public void removeUsuario(Usuario usuario) {
-        SQLiteDatabase writableDatabase = dbManager.getWritableDatabase();
-        try{
-            writableDatabase.beginTransaction();
-            writableDatabase.execSQL(
-                    "DELETE FROM "
-                            + DBManager.USUARIOS_TABLE_NAME
-                            + " WHERE "
-                            + DBManager.USUARIOS_DNI +"=?"
-                    , new Object[]{usuario.getDni()});
-            writableDatabase.setTransactionSuccessful();
-        }catch(SQLException exception){
-            Log.e(UsuarioFacade.class.getName(), "removeUsuario", exception);
-        }finally {
-            writableDatabase.endTransaction();
-        }
-    }
-
-    public void updateUsuario(Usuario usuario) {
-        SQLiteDatabase writableDatabase = dbManager.getWritableDatabase();
-        try{
-            writableDatabase.beginTransaction();
-            writableDatabase.execSQL(
-                    "UPDATE "
-                            + DBManager.USUARIOS_TABLE_NAME
-                            + " SET "
-                            + DBManager.USUARIOS_NOMBRE + "=? ,"
-                            + DBManager.USUARIOS_APELLIDOS + "=? ,"
-                            + DBManager.USUARIOS_PASSWORD + "=? "
-                            + "WHERE "+DBManager.USUARIOS_DNI +"=?",
-                    new Object[]{usuario.getNombre(), usuario.getApellidos(), usuario.getPassword(), usuario.getDni()});
-
-            writableDatabase.setTransactionSuccessful();
-        }catch(SQLException exception){
-            Log.e(UsuarioFacade.class.getName(), "updateUsuario", exception);
-        }finally {
-            writableDatabase.endTransaction();
-        }
-    }
-
     public Cursor getUsuario(){
         Cursor toret = null;
 

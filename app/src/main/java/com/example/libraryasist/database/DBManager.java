@@ -113,10 +113,4 @@ public class DBManager extends SQLiteOpenHelper{
             sqLiteDatabase.endTransaction();
         }
     }
-
-    public Cursor getLibros()
-    {
-        return this.getReadableDatabase().query( LIBROS_TABLE_NAME,
-                null, null, null, null, null, null );
-    }
 }

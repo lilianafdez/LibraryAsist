@@ -1,4 +1,4 @@
-package com.example.libraryasist.core;
+package com.example.libraryasist.adapter;
 
 import android.content.Context;
 import android.database.Cursor;

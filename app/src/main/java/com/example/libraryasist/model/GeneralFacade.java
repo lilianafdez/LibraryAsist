@@ -85,13 +85,7 @@ public abstract class GeneralFacade {
             return toret;
         }
     }
-    public Cursor getTablaFiltrada(String atributo,String filtro){
-        Cursor toret=null;
-        filtro='%'+filtro+'%';
-        toret=this.dbManager.getReadableDatabase().rawQuery("SELECT * FROM "+this.nombreTabla +" WHERE "+atributo+ " LIKE ? ",new String[]{filtro});
 
-        return toret;
-    }
 
     public Cursor getById(long id){
         Cursor toret=null;
@@ -100,18 +94,5 @@ public abstract class GeneralFacade {
         return toret;
     }
 
-    private static Date convertDate(String cadena){
-        SimpleDateFormat isoDateFormat = new SimpleDateFormat( "yyyy-MM-dd HH:mm:ss", Locale.ROOT );
-        isoDateFormat.setTimeZone( TimeZone.getTimeZone( "UTC" ) );
-        String strFecha = cadena;
-        Date fecha=null;
-        try {
-            fecha = isoDateFormat.parse(strFecha);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-
-        return fecha;
-    }
 
 }
