@@ -92,10 +92,11 @@ public class LibroFacade extends GeneralFacade {
                             + DBManager.LIBROS_TABLE_NAME
                             + " SET "
                             + DBManager.LIBROS_TITULO + "=? ,"
-                            + DBManager.LIBROS_AUTOR + "=?"
+                            + DBManager.LIBROS_AUTOR + "=? ,"
+                            + DBManager.LIBROS_RESERVADO + "=? "
 
                             + "WHERE "+DBManager.LIBROS_CODIGO +"=?",
-                    new Object[]{libro.getTitulo(), libro.getTitulo(), libro.getCodigo()});
+                    new Object[]{libro.getTitulo(), libro.getTitulo(), libro.getReservado(), libro.getCodigo()});
 
             writableDatabase.setTransactionSuccessful();
         }catch(SQLException exception){
@@ -132,6 +133,8 @@ public class LibroFacade extends GeneralFacade {
             return false;
         }
     }
+
+
 
 
 }

@@ -55,6 +55,10 @@ public class Libro implements Serializable {
         return reservado;
     }
 
+    public boolean estaReservado(){
+        return this.reservado == 1;
+    }
+
     public void setReservado(Integer reservado) {
         this.reservado = reservado;
     }

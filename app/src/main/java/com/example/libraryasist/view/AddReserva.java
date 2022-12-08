@@ -78,6 +78,7 @@ public class AddReserva extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(AddReserva.this, UsuarioView.class);
+                intent.putExtra("usuarioLogueado",usuarioActual.getDni());
 
                 AddReserva.this.startActivity(intent);
                 AddReserva.this.finish();
@@ -101,8 +102,12 @@ public class AddReserva extends AppCompatActivity {
         builder.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
+                libro.setReservado(1);
+                libroFacade.updateLibro(libro);
                 Reserva reserva = new Reserva(usuarioActual, libro);
                 reservasFacade.createReservas(reserva);
+
+
                 Intent intent = new Intent(AddReserva.this, UsuarioView.class);
 
                 intent.putExtra("usuarioLogueado",usuarioActual.getDni());
@@ -133,8 +138,12 @@ public class AddReserva extends AppCompatActivity {
             temp.setCodigo(librosCursor.getString(librosCursor.getColumnIndex(DBManager.LIBROS_CODIGO)));
             temp.setTitulo(librosCursor.getString(librosCursor.getColumnIndex(DBManager.LIBROS_TITULO)));
             temp.setAutor(librosCursor.getString(librosCursor.getColumnIndex(DBManager.LIBROS_AUTOR)));
+            temp.setReservado(librosCursor.getInt(librosCursor.getColumnIndex(DBManager.LIBROS_RESERVADO)));
 
-            arrayList.add(temp);
+            if (!temp.estaReservado()){
+                arrayList.add(temp);
+            }
+
         }
 
         return arrayList;
