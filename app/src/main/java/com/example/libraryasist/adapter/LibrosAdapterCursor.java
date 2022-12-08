@@ -36,8 +36,12 @@ public class LibrosAdapterCursor extends CursorAdapter {
 
         final Libro libro = LibroFacade.readLibro(cursor);
         titulo.setText(libro.getTitulo());
-        autor.setText(libro.getAutor());
-        reservado.setText(libro.getReservado().toString());
+        autor.setText("Autor: " + libro.getAutor());
+        if(libro.getReservado()== 0){
+            reservado.setText("Reservado: No");
+        } else{
+            reservado.setText("Reservado: Si");
+        };
 
     }
 }

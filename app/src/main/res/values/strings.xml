@@ -5,4 +5,6 @@
     <string name="reservado">Reservado</string>
     <string name="opDel">Eliminar</string>
     <string name="opCancel">Cancelar</string>
+    <string name="verPerfil">Ver Perfil</string>
+    <string name="desconectar">Desconectar</string>
 </resources>

@@ -1,9 +1,13 @@
 package com.example.libraryasist.view;
 
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.view.ContextMenu;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -14,6 +18,7 @@ import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.libraryasist.MainActivity;
@@ -21,6 +26,7 @@ import com.example.libraryasist.MyApplication;
 import com.example.libraryasist.R;
 import com.example.libraryasist.adapter.LibrosAdapterCursor;
 import com.example.libraryasist.core.Libro;
+import com.example.libraryasist.core.Reserva;
 import com.example.libraryasist.core.Usuario;
 import com.example.libraryasist.database.DBManager;
 import com.example.libraryasist.model.LibroFacade;
@@ -95,6 +101,31 @@ public class Vista_admin extends AppCompatActivity {
         }
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        this.getMenuInflater().inflate(R.menu.menu_general,menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+
+        switch (item.getItemId()){
+
+            case R.id.miLogOut:
+                MyApplication myapp=(MyApplication) this.getApplication();
+                myapp.setLogeado(null);
+                myapp.setId_user_logged(0);
+
+                this.startActivity(new Intent(this.getBaseContext(),MainActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP));
+
+                this.finish();
+
+                break;
+        }
+        return true;
+    }
+
     public void onCreateContextMenu(ContextMenu contxt, View v, ContextMenu.ContextMenuInfo cmi){
         if(v.getId() == R.id.lvAdmin){
             this.getMenuInflater().inflate(R.menu.context_menu, contxt);
@@ -106,11 +137,7 @@ public class Vista_admin extends AppCompatActivity {
         long id=((AdapterView.AdapterContextMenuInfo) item.getMenuInfo() ).id;
         switch(item.getItemId()) {
             case R.id.context_opDel:
-                borrarLibro(libros.getLibroById(id));
-                Toast.makeText(Vista_admin.this,"Libro Borrado con Éxito",Toast.LENGTH_SHORT).show();
-
-                Intent intent = new Intent(Vista_admin.this, Vista_admin.class);
-                Vista_admin.this.startActivity(intent);
+                mostrarAlertDialog(libros.getLibroById(id));
                 break;
             case R.id.context_opCancel:
                 Toast.makeText(Vista_admin.this,"Operacion Cancelada",Toast.LENGTH_SHORT).show();
@@ -128,7 +155,7 @@ public class Vista_admin extends AppCompatActivity {
         Libro libro1=new Libro("ISBN111","El Quijote","Cervantes");
         Libro libro2=new Libro("ISBN222","La Fundacion","Antonio Buero Vallejo");
         Libro libro3=new Libro("ISBN333","Cumbres Borrascosas","Emily Bronte");
-        Libro libro4=new Libro("ISBN444","Cronica de una Muerte Anunciada","Gabriel Garcia Marquez");
+        Libro libro4=new Libro("ISBN444","El Cuarto Mono","J. D. Barker");
 
         if(!libros.checkLibro(libro1.getCodigo())){
             libros.createLibro(libro1);
@@ -142,6 +169,35 @@ public class Vista_admin extends AppCompatActivity {
         if(!libros.checkLibro(libro4.getCodigo())){
             libros.createLibro(libro4);
         }
-
     }
+
+    private void mostrarAlertDialog (Libro libro){
+        AlertDialog.Builder builder = new AlertDialog.Builder(Vista_admin.this);
+        //Libro libro = adapterView.getItemAtPosition(i);
+        builder.setTitle(libro.getTitulo());
+
+        String msg = "Autor: "+ libro.getAutor()
+                +"\n\n Eliminar este libro de la biblioteca?";
+
+        builder.setMessage(msg);
+
+
+        builder.setNegativeButton("Cancelar", null);
+        builder.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                borrarLibro(libro);
+                Toast.makeText(Vista_admin.this,"Libro Borrado con Éxito",Toast.LENGTH_SHORT).show();
+
+                Intent intent = new Intent(Vista_admin.this, Vista_admin.class);
+                Vista_admin.this.startActivity(intent);
+
+            }
+        });
+
+        AlertDialog dialog = builder.create();
+        dialog.show();
+    }
+
+
 }

@@ -6,6 +6,8 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -13,6 +15,7 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.libraryasist.MainActivity;
@@ -53,10 +56,12 @@ public class UsuarioView extends AppCompatActivity {
         reservasFacade = new ReservasFacade(dbManager);
         libroFacade = new LibroFacade(dbManager);
         usuarioFacade = new UsuarioFacade(dbManager);
+        this.createLibros();
 
-        String dni = getIntent().getStringExtra("usuarioLogueado");
+        String dni = getIntent().getStringExtra("dniUsuario");
 
         usuarioActual = usuarioFacade.getUsuariosByDni(dni);
+
 
         listViewLibros = (ListView) this.findViewById(R.id.listViewReserva);
         Button botonAñadir = (Button) this. findViewById(R.id.buttonVistaAñadirReserva);
@@ -90,7 +95,7 @@ public class UsuarioView extends AppCompatActivity {
 
     private void actualizarListView (){
         arrayReservas = new ArrayList<>();
-        arrayReservas = UsuarioView.this.listaReserva();
+        arrayReservas = listaReserva();
         filas = new ArrayList<>();
 
         for (int i = 0; i < arrayReservas.size(); i++) {
@@ -150,6 +155,31 @@ public class UsuarioView extends AppCompatActivity {
         return arrayList;
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        this.getMenuInflater().inflate(R.menu.menu_general,menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+
+        switch (item.getItemId()){
+
+            case R.id.miLogOut:
+                MyApplication myapp=(MyApplication) this.getApplication();
+                myapp.setLogeado(null);
+                myapp.setId_user_logged(0);
+
+                this.startActivity(new Intent(this.getBaseContext(),MainActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP));
+
+                this.finish();
+
+                break;
+        }
+        return true;
+    }
+
     private void borrarReservas(List<ListViewReservas> arrayReservas){
 
         List<Reserva> arrayLibrosEliminar = new ArrayList<>();
@@ -196,8 +226,26 @@ public class UsuarioView extends AppCompatActivity {
         }else{
             Toast.makeText(UsuarioView.this, "Ningun libro seleccionado", Toast.LENGTH_SHORT).show();
         }
+    }
 
+    private void createLibros(){
+        Libro libro1=new Libro("ISBN111","El Quijote","Cervantes");
+        Libro libro2=new Libro("ISBN222","La Fundacion","Antonio Buero Vallejo");
+        Libro libro3=new Libro("ISBN333","Cumbres Borrascosas","Emily Bronte");
+        Libro libro4=new Libro("ISBN444","El Cuarto Mono","J. D. Barker");
 
+        if(!libroFacade.checkLibro(libro1.getCodigo())){
+            libroFacade.createLibro(libro1);
+        }
+        if(!libroFacade.checkLibro(libro2.getCodigo())){
+            libroFacade.createLibro(libro2);
+        }
+        if(!libroFacade.checkLibro(libro3.getCodigo())){
+            libroFacade.createLibro(libro3);
+        }
+        if(!libroFacade.checkLibro(libro4.getCodigo())){
+            libroFacade.createLibro(libro4);
+        }
     }
 
 }

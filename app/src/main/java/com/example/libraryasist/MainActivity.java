@@ -43,18 +43,14 @@ public class MainActivity extends AppCompatActivity {
                 if(acceder && !admin){
                     Intent menu_usuario=new Intent(MainActivity.this, UsuarioView.class);
 
+                    MainActivity.this.goTo(menu_usuario,dniUsuario);
 
-                    menu_usuario.putExtra("usuarioLogueado",dniUsuario);
-
-                    Toast.makeText(MainActivity.this,"NO-ADMIN",Toast.LENGTH_SHORT).show();
-                    MainActivity.this.goTo(menu_usuario,"nombreusuario");
                     MainActivity.this.finish();
                 }
 
                 else if(acceder && admin){
                     Intent menu_admin=new Intent(MainActivity.this, Vista_admin.class);
-                    Toast.makeText(MainActivity.this,"SI-ADMIN",Toast.LENGTH_SHORT).show();
-                    MainActivity.this.goTo(menu_admin,"nombreusuario");
+                    MainActivity.this.goTo(menu_admin,dniUsuario);
                     MainActivity.this.finish();
 
                 }
@@ -78,8 +74,8 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    private void goTo(Intent intent, String username){
-        intent.putExtra("username",username);
+    private void goTo(Intent intent, String dni){
+        intent.putExtra("dniUsuario",dni);
         this.startActivity(intent);
     }
 
