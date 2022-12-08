@@ -18,6 +18,7 @@ import com.example.libraryasist.core.Usuario;
 import com.example.libraryasist.database.DBManager;
 import com.example.libraryasist.model.UsuarioFacade;
 
+import java.util.Locale;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -47,9 +48,9 @@ public class RegistroView extends AppCompatActivity {
             public void onClick(View view) {
 
                 if (!RegistroView.this.comprobarVacio()){
-                    if(RegistroView.this.comprobarDni(dniIntroducido.getText().toString())){
-                        if(!RegistroView.this.nombreUsuarioOcupado(dniIntroducido.getText().toString())){
-                            Usuario usuarioRegistrar = new Usuario(dniIntroducido.getText().toString(), nombreIntroducido.getText().toString(),
+                    if(RegistroView.this.comprobarDni(dniIntroducido.getText().toString().toUpperCase())){
+                        if(!RegistroView.this.nombreUsuarioOcupado(dniIntroducido.getText().toString().toUpperCase())){
+                            Usuario usuarioRegistrar = new Usuario(dniIntroducido.getText().toString().toUpperCase(), nombreIntroducido.getText().toString(),
                                     apellidosIntroducido.getText().toString(), passwordIntroducido.getText().toString());
 
                             usuarioFacade.createUsuario(usuarioRegistrar);

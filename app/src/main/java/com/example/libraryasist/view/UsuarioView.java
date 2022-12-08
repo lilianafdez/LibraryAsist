@@ -106,7 +106,6 @@ public class UsuarioView extends AppCompatActivity {
         listViewLibros.setAdapter(this.adaptadorArray);
 
         listViewLibros.setOnItemClickListener(new AdapterView.OnItemClickListener(
-
                                               ) {
                                                   @Override
                                                   public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
